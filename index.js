@@ -1,14 +1,15 @@
-import express from 'express';
-import morgan from 'morgan';
-import helmet from 'helmet';
-import cors from 'cors';
-import router from './server/src/routes/router.js';
+import express from "express";
+import morgan from "morgan";
+import helmet from "helmet";
+import cors from "cors";
+import router from "./server/src/routes/router.js";
+import { connectDB } from "./server/src/database/db.js";
 const app = express();
 
 // middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 app.use(helmet());
 app.use(cors());
 
@@ -18,6 +19,7 @@ app.use(router);
 
 // server
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`http://localhost:${port}/`);
+app.listen(port, async () => {
+  await connectDB();
+  console.log(`http://localhost:${port}/`);
 });
