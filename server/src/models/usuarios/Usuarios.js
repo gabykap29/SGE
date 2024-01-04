@@ -29,6 +29,19 @@ const Usuario = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    fechaCreacion: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    fechaModificacion: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    estado:{
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+    
   },
   {
     timestamps: false,
