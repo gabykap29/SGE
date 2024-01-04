@@ -3,7 +3,9 @@ import morgan from "morgan";
 import helmet from "helmet";
 import cors from "cors";
 import router from "./server/src/routes/router.js";
-import { connectDB } from "./server/src/database/db.js";
+import { connectDB } from "./server/src/database/database.js";
+import Departamento from './server/src/models/Asosiaciones.js'
+
 const app = express();
 
 // middlewares

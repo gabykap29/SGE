@@ -21,10 +21,6 @@ const Expediente = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    circunscripcion_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     juzgado_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

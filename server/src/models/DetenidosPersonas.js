@@ -1,25 +1,24 @@
 import {sequelize} from '../database/database.js';
-import {DataTypes} from 'sequelize';
 
-const Files = sequelize.define('files',{
+const DetenidosPersonas = sequelize.define('detenidos_personas',{
     id:{
         type:DataTypes.INTEGER,
         primaryKey:true,
         autoIncrement:true
     },
-    url:{
-        type:DataTypes.STRING(50),
+    detenido_id:{
+        type:DataTypes.INTEGER,
         allowNull:false
     },
-    expediente_id:{
+    persona_id:{
         type:DataTypes.INTEGER,
         allowNull:false
     },
 },{
     timestamps:false,
     sequelize,
-    modelName:'files',
-    tableName:'files',
+    modelName:'detenidos_personas',
+    tableName:'detenidos_personas',
 });
 
-export default Files;
+export default DetenidosPersonas;
