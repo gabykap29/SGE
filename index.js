@@ -4,7 +4,7 @@ import helmet from "helmet";
 import cors from "cors";
 import router from "./server/src/routes/router.js";
 import { connectDB } from "./server/src/database/database.js";
-import Departamento from './server/src/models/Asosiaciones.js'
+import Departamento, { comprobacionesDB } from './server/src/models/Asosiaciones.js'
 
 const app = express();
 
@@ -23,5 +23,6 @@ app.use(router);
 const port = process.env.PORT || 3000;
 app.listen(port, async () => {
   await connectDB();
+  await comprobacionesDB();
   console.log(`http://localhost:${port}/`);
 });

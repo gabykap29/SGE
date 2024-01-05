@@ -10,7 +10,7 @@ const Juzgado = sequelize.define(
       autoIncrement: true,
     },
     nombre: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     circunscripcion_id: {
