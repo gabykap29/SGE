@@ -1,0 +1,55 @@
+
+<%- include('../layouts/head.ejs');%>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+        <!-- Spinner Start -->
+        <div id="spinner"
+            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Sign In Start -->
+        <div class="container-fluid">
+            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+                    <form id="formLogin">
+                        <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <img class="text-center mb-2" src="/img/iconosLogin/expediente.png" width="50px"
+                                    alt="imagen de expediente login">
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <a href="#" class="">
+                                    <h3 class="text-primary">Sistema de Gestión de Expedientes
+                                </a>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="user" placeholder="user">
+                                <label for="floatingInput">Usuario</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="password" class="form-control" id="password" placeholder="Password">
+                                <label for="floatingPassword">Contraseña</label>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="showPass">
+                                    <label class="form-check-label" for="exampleCheck1">Ver contraseña</label>
+                                </div>
+                            </div>
+                            <button type="submit" id="btn-submit" class="btn py-3 w-100 mb-4">Sign In</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Sign In End -->
+    </div>
+<script src="/js/auth/login.js">
+</script>
+
+<%- include('../layouts/bottom.ejs');%>

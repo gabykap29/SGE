@@ -14,7 +14,7 @@ const Usuario = sequelize.define(
       allowNull: false,
     },
     password: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     nombre: {
@@ -30,12 +30,12 @@ const Usuario = sequelize.define(
       allowNull: false,
     },
     fechaCreacion: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     fechaModificacion: {
-      type: DataTypes.DATE,
-      allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     estado:{
       type: DataTypes.BOOLEAN,

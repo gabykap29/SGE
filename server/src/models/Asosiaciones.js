@@ -1,6 +1,5 @@
 import Circunscripcion from "./Circunscripcion.js";
 import Departamento from "./Departamento.js";
-import ExpedienteDetenidos from "./ExpedienteDetenidos.js";
 import Expediente from "./Expediente.js";
 import Files from "./Files.js";
 import Juzgado from "./Juzgados.js";
@@ -21,7 +20,7 @@ import { cargarRoles } from "../utils/cargarRoles.js";
 import { cargarPermisos } from "../utils/cargarPermisos.js";
 import RolesPermisos from "../models/usuarios/RolesPermisos.js";
 import { asignarPermisos } from "../utils/asignarPermisos.js";
-
+import ExpedientePersona from "./ExpedientePersona.js";
 Departamento.hasMany(Localidad, {
   foreignKey: "departamento_id",
   as: "localidades",
@@ -43,15 +42,13 @@ Juzgado.belongsTo(Circunscripcion, {
 Juzgado.hasMany(Expediente, { foreignKey: "juzgado_id", as: "expedientes" });
 Expediente.belongsTo(Juzgado, { foreignKey: "juzgado_id", as: "juzgado" });
 
-Expediente.belongsToMany(Detenido, {
-  through: ExpedienteDetenidos,
-  as: "detenidos",
-  foreignKey: "expediente_id",
+Expediente.belongsToMany(Persona, {
+  through: ExpedientePersona,
+  as: "personas",
 });
-Detenido.belongsToMany(Expediente, {
-  through: ExpedienteDetenidos,
-  as: "expedientes",
-  foreignKey: "detenido_id",
+Persona.belongsToMany(Expediente, {
+  through: ExpedientePersona,
+  as:'personas'
 });
 
 Expediente.hasMany(Files, { foreignKey: "expediente_id", as: "files" });
@@ -126,7 +123,7 @@ await Permisos.sync({ force: false });
 await Usuario.sync({ force: false });
 await Persona.sync({ force: false });
 await Detenido.sync({ force: false });
-await ExpedienteDetenidos.sync({ force: false });
+
 await Files.sync({ force: false });
 
 
@@ -171,16 +168,30 @@ export const comprobacionesDB = async () => {
 
   if (countUsuarios === 0) {
     //Generar password encriptado con bcrypt
+    const fechaActual = new Date();
+    const fechaEnUTC = fechaActual.toISOString(); // Obtener la fecha en formato UTC
+
+    // Formatear la fecha según tu preferencia (por ejemplo, 'es-ES' para español)
+    const opcionesFecha = { timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric' };
+    const opcionesHora = { timeZone: 'UTC', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+
+    const fechaFormateada = fechaActual.toLocaleDateString('es-ES', opcionesFecha);
+    const horaFormateada = fechaActual.toLocaleTimeString('es-ES', opcionesHora);
+
+
+
+
     const password = "admin";
     const salt = await bcrypt.genSalt(10);
     //Usuario por defecto
     const passwordHash = await bcrypt.hash(password, salt);
-    await Usuario.bulkCreate({
+    await Usuario.create({
       nombre: "Administrator",
       apellido: "Administrator",
       username: "admin",
       password: passwordHash,
       rol_id: 1,
+      fechaCreacion: fechaFormateada + " " + horaFormateada,
     });
   } else {
     console.log("Ya existen usuarios en la base de datos");
@@ -226,7 +237,7 @@ export const comprobacionesDB = async () => {
 export default {
   Circunscripcion,
   Departamento,
-  ExpedienteDetenidos,
+
   Expediente,
   Files,
   Juzgado,
