@@ -9,7 +9,6 @@ import Permisos from "./usuarios/Permisos.js";
 import Localidad from "./Localidad.js";
 import OrigenExpediente from "./OrigenExpediente.js";
 import TipoExpediente from "./TipoExpediente.js";
-import Detenido from "./Detenidos.js";
 import { sequelize } from "../database/database.js";
 import Persona from "./Personas.js";
 import bcrypt from "bcryptjs";
@@ -81,8 +80,6 @@ Localidad.hasMany(Expediente, {
   as: "expedientes",
 });
 
-Persona.hasMany(Detenido, { foreignKey: "persona_id", as: "detencion" });
-Detenido.belongsTo(Persona, { foreignKey: "persona_id", as: "detencion" });
 
 Usuario.belongsTo(Rol, { foreignKey: "rol_id", as: "rol" });
 Rol.hasMany(Usuario, { foreignKey: "rol_id", as: "usuarios" });
@@ -98,16 +95,6 @@ Permisos.belongsToMany(Rol, {
   foreignKey: "permiso_id",
 });
 
-Detenido.belongsToMany(Persona, {
-  through: "detenidos_personas",
-  as: "personas",
-  foreignKey: "detenido_id",
-});
-Persona.belongsToMany(Detenido, {
-  through: "detenidos_personas",
-  as: "detenidos",
-  foreignKey: "persona_id",
-});
 
 //orden de creacion de tablas
 await Departamento.sync({ force: false });
@@ -122,7 +109,6 @@ await RolesPermisos.sync({ force: false });
 await Permisos.sync({ force: false });
 await Usuario.sync({ force: false });
 await Persona.sync({ force: false });
-await Detenido.sync({ force: false });
 
 await Files.sync({ force: false });
 
@@ -237,7 +223,6 @@ export const comprobacionesDB = async () => {
 export default {
   Circunscripcion,
   Departamento,
-
   Expediente,
   Files,
   Juzgado,
@@ -247,7 +232,6 @@ export default {
   Localidad,
   OrigenExpediente,
   TipoExpediente,
-  Detenido,
   Persona,
   RolesPermisos,
 };
