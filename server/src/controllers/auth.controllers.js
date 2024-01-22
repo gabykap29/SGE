@@ -40,13 +40,26 @@ export const login = async (req, res) => {
             });
         };
         const token = await generarJWT(usuario.id, usuario.rol_id);
+        const cookieExpires = process.env.CookiesExpireTime || 1;
+
+        const ExpirationEnd = new Date(Date.now() + cookieExpires * 60 * 60 * 1000);
+
+        const cookiesOptions = {
+            expires: ExpirationEnd,
+            httpOnly: true,
+            sameSite: "strict",
+          };
+          res.cookie('userSession', token, cookiesOptions);
+
         return res.status(200).json({
-            usuario,
-            token,
+            message:'Inicio de sesion exitoso!'
         });
 
     } catch (error) {
         console.log(error);
+        return res.status(500).json({
+            message: 'Hable con el administrador',
+        });
     }
 };
 

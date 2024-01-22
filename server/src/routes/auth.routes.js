@@ -1,11 +1,11 @@
 import express from 'express';
 import { login } from '../controllers/auth.controllers.js';
-const router = express.Router();
+const routerAuth = express.Router();
 let page;
-router.get('/',(req,res)=>{
+routerAuth.get('/',(req,res)=>{
     res.render('auth/login',{page: 'login'});
 });
 
 //apis
-router.post('/login', login);
-export default router;
+routerAuth.post('/login', login);
+export default routerAuth;

@@ -41,9 +41,10 @@ const Expediente = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    // 1 es completado, 2 es vencido y 3 es en curso
     estado: {
       type: DataTypes.STRING,
-      allowNull: false,
+      defaultValue:3
     },
     secretario: {
       type: DataTypes.STRING,
@@ -59,8 +60,21 @@ const Expediente = sequelize.define(
     },
     files_id: {
       type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    creador:{
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
+    id_modificador:{
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    //para eliminado logico
+    state:{
+      type: DataTypes.BOOLEAN,
+      defaultValue:true,
+    }
   },
   {
     timestamps: false,

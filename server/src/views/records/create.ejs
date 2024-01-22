@@ -1,0 +1,109 @@
+<%- include('../layouts/head.ejs'); %>
+    <!--Spinner start-->
+<%- include('../layouts/spinner.ejs'); %>
+<!--Spinner end-->
+
+<!-- Sidebard start-->
+<%- include('../partials/sidebard.ejs'); %>
+<!-- Sidebard end-->
+
+<!--navbar start-->
+<%- include('../partials/navbar.ejs'); %>
+<!--navbar end-->
+
+                <!--Conten start-->
+
+                <div class="container-fluid pt-4 px-4 card">
+                    <div class="card bg-light">
+                        <div class="card-header">
+                            <h6 class="text-secondary">Crear nuevo Expediente</h6>
+                        </div>
+                        <div class="card-body">
+                            <form class="row g-3 needs-validation" novalidate>
+                                <div class="col-md-6 position-relative">
+                                    <label for="validationTooltip04" class="form-label">Departamento</label>
+                                    <select class="form-select input" id="selectDepar" name="selectDepar" required>
+                                      <option selected disabled>Selecciona una opción</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-6 position-relative">
+                                    <label for="validationTooltip04" class="form-label">Localidad</label>
+                                    <select class="form-select input" id="selecLocalidad" name="selecLocalidad" required>
+                                      <option selected disabled>Selecciona una opción</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-6 position-relative">
+                                    <label for="validationTooltip04" class="form-label">Tipo</label>
+                                    <select class="form-select input" id="selectType" name="selectType" required>
+                                      <option selected disabled>Selecciona una opción</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-6 position-relative">
+                                    <label for="validationTooltip04" class="form-label">Circunscripción</label>
+                                    <select class="form-select input" id="selectDistrict" name="selectDistrict" required>
+                                      <option selected disabled>Selecciona una opción</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-6 position-relative">
+                                    <label for="validationTooltip04" class="form-label">Juzgado</label>
+                                    <select class="form-select input" id="selectCourt" name="selectCourt" required>
+                                      <option selected disabled>Selecciona una opción</option>
+                                    </select>
+                                  </div>
+                                <div class="col-6">
+                                    <label for="validationCustom05" class="form-label">Fecha de Inicio</label>
+                                    <input type="date" class="form-control" id="validationCustom05" required>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid zip.
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <label for="validationCustom05" class="form-label">Fecha Origen</label>
+                                    <input type="date" class="form-control" id="validationCustom05" required>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid zip.
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="validationCustom05" class="form-label">Resumen</label>
+                                    <textarea class="form-control" id="validationCustom05" rows="3" style="height: 182px;" required>
+                                    </textarea>
+
+                                </div>
+
+                                <div class="col-12">
+                                    <button class="btn btn-show" type="submit">Subir Expediente</button>
+                                    <button class="btn btn-secondary" type="reset">Borrar campos</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!--Content end-->
+
+
+
+
+
+
+
+                <!--footer and end-->
+                <%- include('../partials/footerAndEnd.ejs'); %>
+
+
+                    <%- include('../layouts/bottom.ejs'); %>
+          <script
+          src="/js/departments/show.js"
+          ></script>
+          <script
+          src="/js/localities/show.js"
+          ></script>
+          <script
+          src="/js/recordsTypes/show.js"
+          ></script>
+          <script
+          src="/js/districts/show.js"
+          ></script>

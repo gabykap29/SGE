@@ -20,7 +20,7 @@ formLogin.addEventListener("submit", async (e) => {
     const { message } = await res.json();
     alertify.success(`Success message: ${message} `);
     setTimeout(() => {
-      window.location.href = "/index";
+      window.location.href = "/home";
     }, 2000);
   } catch (error) {
     console.log(error);

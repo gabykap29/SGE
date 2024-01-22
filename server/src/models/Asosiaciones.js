@@ -124,6 +124,7 @@ export const comprobacionesDB = async () => {
   const countLocalidades = await Localidad.count();
   const countJuzgados = await Juzgado.count();
   const countRolesPermisos = await RolesPermisos.count();
+  const countTipoExpediente = await TipoExpediente.count();
 
       //Circunscripciones
       if(countCircunscripciones === 0){
@@ -210,6 +211,19 @@ export const comprobacionesDB = async () => {
     console.log("Ya existen localidades en la base de datos");
   };
 
+  //Tipo Expediente
+  if(countTipoExpediente === 0){
+    const tipoExpediente = [
+      "Contravencional",
+      "Judicial",
+      "Otros",
+    ];
+    tipoExpediente.forEach(async (tipo) => {
+      await TipoExpediente.create({ nombre: tipo });
+    });
+  }else{
+    console.log('Ya existen tipos de expedientes en la base de datos');
+  }
 
     //Juzgados
     if(countJuzgados === 0){

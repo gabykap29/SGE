@@ -133,9 +133,9 @@
 
 .sidebar .navbar .navbar-nav .nav-link:hover,
 .sidebar .navbar .navbar-nav .nav-link.active {
-    color: var(--primary);
+    color: #857bf3;
     background: #FFFFFF;
-    border-color: var(--primary);
+    border-color: #857bf3;
 }
 
 .sidebar .navbar .navbar-nav .nav-link i {
@@ -237,11 +237,11 @@
 
 .bootstrap-datetimepicker-widget table td.active,
 .bootstrap-datetimepicker-widget table td.active:hover {
-    background: var(--primary);
+    background: #857bf3;
 }
 
 .bootstrap-datetimepicker-widget table td.today::before {
-    border-bottom-color: var(--primary);
+    border-bottom-color: #857bf3;
 }
 
 
@@ -283,4 +283,11 @@
 
 a{
     color: #857bf3;
+}
+#logo{
+    color: #857bf3;
+}
+.btn-show{
+    background: #857bf3;
+    color: white;
 }
