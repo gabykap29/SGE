@@ -25,5 +25,5 @@ const renderDepartments = async () => {
 };
 
 document.addEventListener('DOMContentLoaded',async ()=>{
-    await renderDepartments(await getDepartments());
+    await renderDepartments();
 });

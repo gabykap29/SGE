@@ -1,5 +1,6 @@
-import Expediente from "../models/Expediente";
-import Usuario from "../models/Usuario";
+import Expediente from "../models/Expediente.js";
+import Usuario from "../models/usuarios/Usuarios.js";
+import jwt from "jsonwebtoken";
 export const expedientesCtrl = {};
 
 expedientesCtrl.getExpedientes = async (req, res) => {
@@ -19,8 +20,9 @@ expedientesCtrl.getExpedientes = async (req, res) => {
   }
 };
 
-expedientesCtrl.createExpediente = async (req, res) => {
+expedientesCtrl.crearExpediente = async (req, res) => {
   const {
+    circunscripcion_id,
     tipo_expediente_id,
     orden,
     localidad_id,
@@ -28,11 +30,8 @@ expedientesCtrl.createExpediente = async (req, res) => {
     fecha_inicio,
     fecha_origen,
     resumen,
-    secuestros,
-    estado,
+    estado=3,
     secretario,
-    observaciones,
-    fecha_elevacion,
   } = req.body;
   const userSession = req.cookies.userSession;
   try {
@@ -43,25 +42,23 @@ expedientesCtrl.createExpediente = async (req, res) => {
         id,
       },
     });
-    const newExpediente = await Expediente.create({
+    const nuevoExpediente = await Expediente.create({
       tipo_expediente_id,
       orden,
       localidad_id,
+      circunscripcion_id,
       juzgado_id,
       fecha_inicio,
       fecha_origen,
       resumen,
-      secuestros,
       estado,
       secretario,
-      observaciones,
-      fecha_elevacion,
       creador: usuario.id,
     });
-    if (newExpediente) {
+    if (nuevoExpediente) {
       return res.status(200).json({
         message: "Expediente creado correctamente",
-        data: newExpediente,
+        data: nuevoExpediente,
       });
     }
   } catch (error) {
@@ -112,5 +109,5 @@ expedientesCtrl.destroy = async (req, res) => {
     return res.status(500).json({
       message: "Error interno del servidor al eliminar expediente",
     });
-  }
+  };
 };

@@ -13,8 +13,8 @@ const getLocalities = async (id) => {
     };
 };
 
-const showLocalities = async () => {
-    const localities = await getLocalities();
+const showLocalities = async (id) => {
+    const localities = await getLocalities(id);
     selecLocality.innerHTML= '';
     localities.data.length < 1 ? selecLocality.innerHTML = '<option value="">No hay localidades</option>' : (
         localities.data.forEach(locality => {
@@ -28,13 +28,5 @@ const showLocalities = async () => {
 
 selectDepart.addEventListener('change', async () => {
     const id = selectDepart.value;
-    selecLocality.innerHTML = '<option value="">Cargando...</option>';
-    const localities = await getLocalities(id);
-    selecLocality.innerHTML = '<option value="">Seleccione una localidad</option>';
-    localities.data.forEach(locality => {
-        const option = document.createElement('option');
-        option.value = locality.id;
-        option.textContent = locality.nombre;
-        selecLocality.appendChild(option);
-    });
+    await showLocalities(id);
 });

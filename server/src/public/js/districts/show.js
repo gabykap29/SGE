@@ -25,5 +25,5 @@ const renderDistricts = async () => {
 };
 
 document.addEventListener('DOMContentLoaded',async()=>{
-    await renderDistricts(await getDistricts());
+    await renderDistricts();
 });

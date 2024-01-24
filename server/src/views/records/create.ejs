@@ -19,7 +19,7 @@
                             <h6 class="text-secondary">Crear nuevo Expediente</h6>
                         </div>
                         <div class="card-body">
-                            <form class="row g-3 needs-validation" novalidate>
+                            <form class="row g-3 needs-validation" id="formCreateRecord">
                                 <div class="col-md-6 position-relative">
                                     <label for="validationTooltip04" class="form-label">Departamento</label>
                                     <select class="form-select input" id="selectDepar" name="selectDepar" required>
@@ -52,21 +52,23 @@
                                   </div>
                                 <div class="col-6">
                                     <label for="validationCustom05" class="form-label">Fecha de Inicio</label>
-                                    <input type="date" class="form-control" id="validationCustom05" required>
-                                    <div class="invalid-feedback">
-                                        Please provide a valid zip.
-                                    </div>
+                                    <input type="date" class="form-control" id="dateStart" required>
                                 </div>
                                 <div class="col-6">
                                     <label for="validationCustom05" class="form-label">Fecha Origen</label>
-                                    <input type="date" class="form-control" id="validationCustom05" required>
-                                    <div class="invalid-feedback">
-                                        Please provide a valid zip.
-                                    </div>
+                                    <input type="date" class="form-control" id="dateOrigin" required>
                                 </div>
+                                <div class="col-6">
+                                  <label for="validationCustom05" class="form-label">Orden</label>
+                                  <input type="number" class="form-control" id="order" required>
+                              </div>
+                              <div class="col-6">
+                                <label for="validationCustom05" class="form-label">Secretario</label>
+                                <input type="text" class="form-control" id="secretary" required>
+                            </div>
                                 <div class="col-12">
                                     <label for="validationCustom05" class="form-label">Resumen</label>
-                                    <textarea class="form-control" id="validationCustom05" rows="3" style="height: 182px;" required>
+                                    <textarea class="form-control" id="resume" rows="3" style="height: 182px;" required>
                                     </textarea>
 
                                 </div>
@@ -106,4 +108,10 @@
           ></script>
           <script
           src="/js/districts/show.js"
+          ></script>
+          <script
+          src="/js/courts/show.js"
+          ></script>
+          <script
+          src="/js/records/create.js"
           ></script>

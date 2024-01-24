@@ -39,7 +39,7 @@ const Expediente = sequelize.define(
     },
     secuestros: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     // 1 es completado, 2 es vencido y 3 es en curso
     estado: {
