@@ -47,7 +47,7 @@ Expediente.belongsToMany(Persona, {
 });
 Persona.belongsToMany(Expediente, {
   through: ExpedientePersona,
-  as:'personas'
+  as: "personas",
 });
 
 Expediente.hasMany(Files, { foreignKey: "expediente_id", as: "files" });
@@ -80,7 +80,6 @@ Localidad.hasMany(Expediente, {
   as: "expedientes",
 });
 
-
 Usuario.belongsTo(Rol, { foreignKey: "rol_id", as: "rol" });
 Rol.hasMany(Usuario, { foreignKey: "rol_id", as: "usuarios" });
 
@@ -95,7 +94,6 @@ Permisos.belongsToMany(Rol, {
   foreignKey: "permiso_id",
 });
 
-
 //orden de creacion de tablas
 await Departamento.sync({ force: false });
 await Localidad.sync({ force: false });
@@ -103,7 +101,7 @@ await Circunscripcion.sync({ force: false });
 await Juzgado.sync({ force: false });
 await TipoExpediente.sync({ force: false });
 await OrigenExpediente.sync({ force: false });
-await Expediente.sync({ force: false }); 
+await Expediente.sync({ force: false });
 await Rol.sync({ force: false });
 await RolesPermisos.sync({ force: false });
 await Permisos.sync({ force: false });
@@ -111,9 +109,6 @@ await Usuario.sync({ force: false });
 await Persona.sync({ force: false });
 
 await Files.sync({ force: false });
-
-
-
 
 export const comprobacionesDB = async () => {
   const countRoles = await Rol.count();
@@ -126,14 +121,12 @@ export const comprobacionesDB = async () => {
   const countRolesPermisos = await RolesPermisos.count();
   const countTipoExpediente = await TipoExpediente.count();
 
-      //Circunscripciones
-      if(countCircunscripciones === 0){
-        await cargarCircunscripciones();
-    }else{
-        console.log('Ya existen circunscripciones en la base de datos');
-    };
-
-
+  //Circunscripciones
+  if (countCircunscripciones === 0) {
+    await cargarCircunscripciones();
+  } else {
+    console.log("Ya existen circunscripciones en la base de datos");
+  }
 
   if (countRoles === 0) {
     await cargarRoles();
@@ -159,14 +152,27 @@ export const comprobacionesDB = async () => {
     const fechaEnUTC = fechaActual.toISOString(); // Obtener la fecha en formato UTC
 
     // Formatear la fecha según tu preferencia (por ejemplo, 'es-ES' para español)
-    const opcionesFecha = { timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric' };
-    const opcionesHora = { timeZone: 'UTC', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+    const opcionesFecha = {
+      timeZone: "UTC",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    const opcionesHora = {
+      timeZone: "UTC",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+    };
 
-    const fechaFormateada = fechaActual.toLocaleDateString('es-ES', opcionesFecha);
-    const horaFormateada = fechaActual.toLocaleTimeString('es-ES', opcionesHora);
-
-
-
+    const fechaFormateada = fechaActual.toLocaleDateString(
+      "es-ES",
+      opcionesFecha
+    );
+    const horaFormateada = fechaActual.toLocaleTimeString(
+      "es-ES",
+      opcionesHora
+    );
 
     const password = "admin";
     const salt = await bcrypt.genSalt(10);
@@ -209,29 +215,24 @@ export const comprobacionesDB = async () => {
     console.log("Localidades cargadas con éxito!");
   } else {
     console.log("Ya existen localidades en la base de datos");
-  };
+  }
 
   //Tipo Expediente
-  if(countTipoExpediente === 0){
-    const tipoExpediente = [
-      "Contravencional",
-      "Judicial",
-      "Otros",
-    ];
+  if (countTipoExpediente === 0) {
+    const tipoExpediente = ["Contravencional", "Judicial", "Otros"];
     tipoExpediente.forEach(async (tipo) => {
       await TipoExpediente.create({ nombre: tipo });
     });
-  }else{
-    console.log('Ya existen tipos de expedientes en la base de datos');
+  } else {
+    console.log("Ya existen tipos de expedientes en la base de datos");
   }
 
-    //Juzgados
-    if(countJuzgados === 0){
-        await cargarJuzgados();
-    }else{
-        console.log('Ya existen juzgados en la base de datos');
-    }
-
+  //Juzgados
+  if (countJuzgados === 0) {
+    await cargarJuzgados();
+  } else {
+    console.log("Ya existen juzgados en la base de datos");
+  }
 };
 
 export default {

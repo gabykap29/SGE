@@ -56,48 +56,25 @@
     </div>
     <hr>
     <div class="col-sm-12 ">
-        <div class=" rounded h-100 p-4">
+        <div class=" rounded h-100 p-4 table-responsive">
             <h6 class="mb-4">Ultimos expedientes cargados</h6>
             <table class="table table-striped ">
-                <thead>
+                <thead >
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">orden</th>
+                        <th scope="col">Departamento</th>
                         <th scope="col">Localidad</th>
-                        <th scope="col">Fecha de inicio</th>
-                        <th scope="col">Iniciado por</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Circunscripcion</th>
+                        <th scope="col">Juzgado</th>
+                        <th scope="col">Inicio</th>
+                        <th scope="col">Origen</th>
                         <th scope="col">Estado</th>
+                        <th scope="col">Secretario</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
-                <tbody >
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>25</td>
-                        <td>Doe</td>
-                        <td>12/08/2023</td>
-                        <td>Juan Parquis</td>
-                        <td>SIn elevar</td>
-                        <td><a href="#" class="btn btn-outline btn-sm btn-show"><i class="bi bi-eye-fill"></i></a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>24</td>
-                        <td>Doe</td>
-                        <td>12/08/2023</td>
-                        <td>Bon Joe</td>
-                        <td>SIn elevar</td>
-                        <td><a href="#" class="btn btn-outline btn-sm btn-show"><i class="bi bi-eye-fill"></i></a></td>
-                    </tr >
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>23</td>
-                        <td>Doe</td>
-                        <td>12/08/2023</td>
-                        <td>Bon Jovi</td>
-                        <td>SIn elevar</td>
-                        <td><a href="#" class="btn btn-outline btn-sm btn-show"><i class="bi bi-eye-fill"></i></a></td>
-                    </tr>
+                <tbody id="records" >
                 </tbody>
             </table>
         </div>
@@ -107,10 +84,11 @@
 
 
 
-
+<script
+src="/js/records/show.js"
+></script>
 <!--footer and end-->
 <%- include('../partials/footerAndEnd.ejs'); %>
-
 
 <%- include('../layouts/bottom.ejs'); %>
 

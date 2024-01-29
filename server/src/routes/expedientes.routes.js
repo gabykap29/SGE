@@ -14,5 +14,6 @@ routerExpedientes.get('/crearNuevo', (req, res) => {
 //apis
 
 routerExpedientes.get('/api/tipoExpedientes',getTipoExpedientes);
+routerExpedientes.get('/api/expedientes',expedientesCtrl.getExpedientes);
 routerExpedientes.post('/api/expedientes/nuevo',expedientesCtrl.crearExpediente);
 export default routerExpedientes;

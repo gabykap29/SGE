@@ -1,11 +1,47 @@
 import Expediente from "../models/Expediente.js";
 import Usuario from "../models/usuarios/Usuarios.js";
+import Localidad from "../models/Localidad.js";
 import jwt from "jsonwebtoken";
+import Circunscripcion from "../models/Circunscripcion.js";
+import Juzgado from "../models/Juzgados.js";
+import Departamento from "../models/Departamento.js";
+import TipoExpediente from "../models/TipoExpediente.js";
 export const expedientesCtrl = {};
 
 expedientesCtrl.getExpedientes = async (req, res) => {
+  const {page=0, size=10} = req.query;
   try {
-    const expedientes = await Expediente.findAll();
+    const expedientes = await Expediente.findAll(
+      {
+        include:[
+          {
+            model:Localidad,
+            as:'localidad',
+            attributes:['nombre'],
+            include:[{
+              model:Departamento,
+              as:'departamento',
+              attributes:['nombre']
+            }]
+          },{
+            model:Juzgado,
+            as:'juzgado',
+            attributes:['nombre'],
+            include:[{
+              model:Circunscripcion,
+              as:'circunscripcion',
+              attributes:['nombre']
+            }],
+          },{
+            model:TipoExpediente,
+            as:'tipo_expediente',
+            attributes:['nombre']
+          }
+        ],
+        limit: size,
+        offset: page * size,
+        order:[['id', 'DESC']]
+      });
     if (!expedientes) {
       res.status(404).json({
         message: "No se encontraron expedientes",
