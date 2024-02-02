@@ -56,6 +56,55 @@ expedientesCtrl.getExpedientes = async (req, res) => {
   }
 };
 
+expedientesCtrl.getExpediente = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const expediente = await Expediente.findOne(
+      {
+        where: {
+          id,
+        },
+        include:[
+          {
+            model:Localidad,
+            as:'localidad',
+            attributes:['nombre'],
+            include:[{
+              model:Departamento,
+              as:'departamento',
+              attributes:['nombre']
+            }]
+          },{
+            model:Juzgado,
+            as:'juzgado',
+            attributes:['nombre'],
+            include:[{
+              model:Circunscripcion,
+              as:'circunscripcion',
+              attributes:['nombre']
+            }],
+          },{
+            model:TipoExpediente,
+            as:'tipo_expediente',
+            attributes:['nombre']
+          }
+        ]
+      }
+    );
+    if (!expediente) {
+      return res.status(404).json({
+        message: "No se encontro el expediente",
+      });
+    };
+    return res.status(200).json({ data: expediente });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Error interno del servidor al obtener expediente",
+    });
+  };
+};
+
 expedientesCtrl.crearExpediente = async (req, res) => {
   const {
     circunscripcion_id,

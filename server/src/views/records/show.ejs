@@ -1,0 +1,160 @@
+<%- include('../layouts/head.ejs'); %>
+    <!--Spinner start-->
+    <%- include('../layouts/spinner.ejs'); %>
+        <!--Spinner end-->
+
+        <!-- Sidebard start-->
+        <%- include('../partials/sidebard.ejs'); %>
+            <!-- Sidebard end-->
+
+            <!--navbar start-->
+            <%- include('../partials/navbar.ejs'); %>
+                <!--navbar end-->
+
+                <!--Conten start-->
+
+                <div class="container-fluid pt-4 px-4 card  content-records-show">
+                    <div class="card bg-light shadow">
+                        <div class="card-header">
+                            <h6 class="text-center" id="recordType"><u>Expediente Judicial elevado 30-01-2024 <img src="/img/comprobado.png" width="25px" alt="icono de comprobado"> </u></h6>
+                        </div>
+                    <div class="row m-2">
+                        <div class="col-md-6 ">
+                            <div class="card bg-light shadow">
+                                <div class="card-header">
+                                    <h6 class="text-center" id="recordId" data-id="<%= id %>"><u>Información General</u></h6>
+                                </div>
+                                <div class="row m-2">
+                                    <div class="col-12 m-2">
+                                        <div class="card  ">
+                                            <div class="card-body" id="department">
+                                                Departamento/Formosa
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 m-2">
+                                        <div class="card ">
+                                            <div class="card-body" id="locality">
+                                                Localidad/Formosa
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 m-2">
+                                        <div class="card ">
+                                            <div class="card-body" id="dateOrigin">
+                                                Fecha Origen/12-12-2021
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 m-2">
+                                        <div class="card ">
+                                            <div class="card-body" id="dateStart">
+                                                Fecha Inicio/12-12-2021
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" col-12 m-2">
+                                        <div class="card ">
+                                            <div class="card-body" id="jurisdiction">
+                                               Circunscripción/1° Circunscripción Judicial
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 m-2">
+                                        <div class="card ">
+                                            <div class="card-body" id="court">
+                                                Juzgado/Juzgado de Familia y Menores N° 1
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 m-2">
+                                        <div class="card ">
+                                            <div class="card-body" id="order">
+                                               Orden n° 1
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 m-2">
+                                        <div class="card ">
+                                            <div class="card-body" id="secretary">
+                                                Secretario/Of Juan Perez
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card bg-light shadow" style="height: 43%;">
+                                <div class="card-header">
+                                    <h6 class="text-center"><u>Resumen</u></h6>
+                                </div>
+                                <div class="card-body" id="resume">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Et suscipit quos vero doloribus tenetur accusamus aut dolores nisi! Mollitia quam consectetur ipsum non rem eos doloribus placeat, voluptatem eligendi quasi!
+                                </div>
+                            </div>
+                            <div class="card bg-light shadow mt-5" style="height: 49%;">
+                                <div class="card-header">
+                                    <h6 class="text-center"><u>Personas involucradas</u></h6>
+                                </div>
+                                <div class="card-body table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">DNI</th>
+                                                <th scope="col">Apellido</th>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">Domicilio</th>
+                                                <th scope="col">First</th>
+                                                <th scope="col">Last</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="involvedPerson">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container mt-4">
+                            <div class="card bg-light m-3  shadow" >
+                                <div class="card-header">
+                                    <h6 class="text-center"><u>Secuestros</u></h6>
+                                </div>
+                                <div class="card-body" id="confiscation">
+                                    <p>No hay secuestros que mostrar.-
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container mt-2">
+                            <div class="card bg-light m-3  shadow" >
+                                <div class="card-header">
+                                    <h6 class="text-center"><u>Observaciones</u></h6>
+                                </div>
+                                <div class="card-body" id="observations">
+                                    <p>No hay observaciones que mostrar.-
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--Content end-->
+
+
+
+<script
+src="/js/records/recordDetails.js"
+></script>
+
+                <!--footer and end-->
+                <%- include('../partials/footerAndEnd.ejs'); %>
+
+
+                    <%- include('../layouts/bottom.ejs'); %>

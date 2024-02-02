@@ -9,11 +9,14 @@ routerExpedientes.get('/home', (req, res) => {
 routerExpedientes.get('/crearNuevo', (req, res) => {
     return res.render('records/create',{page: 'Nuevo Expediente'});
 });
-
+routerExpedientes.get('/expedientes/:id', (req, res) => {
+    return res.render('records/show',{page: 'Vista de Expediente', id: req.params.id});
+});
 
 //apis
 
 routerExpedientes.get('/api/tipoExpedientes',getTipoExpedientes);
 routerExpedientes.get('/api/expedientes',expedientesCtrl.getExpedientes);
+routerExpedientes.get('/api/expedientes/:id',expedientesCtrl.getExpediente);
 routerExpedientes.post('/api/expedientes/nuevo',expedientesCtrl.crearExpediente);
 export default routerExpedientes;

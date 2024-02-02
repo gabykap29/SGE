@@ -151,7 +151,7 @@ export const comprobacionesDB = async () => {
     const fechaActual = new Date();
     const fechaEnUTC = fechaActual.toISOString(); // Obtener la fecha en formato UTC
 
-    // Formatear la fecha según tu preferencia (por ejemplo, 'es-ES' para español)
+
     const opcionesFecha = {
       timeZone: "UTC",
       year: "numeric",
