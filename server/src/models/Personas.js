@@ -34,7 +34,11 @@ const Persona = sequelize.define('persona',{
     departamento:{
         type:DataTypes.STRING(50),
         allowNull:false
-    },    
+    },
+    observaciones:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
 });
 
 export default Persona;

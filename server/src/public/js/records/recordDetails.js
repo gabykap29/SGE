@@ -40,7 +40,7 @@ const renderRecord = async (id) => {
     order.textContent = "Orden/ "+record.orden;
     secretary.textContent = "Secretario/"+record.secretario;
     resume.textContent = record.resumen;
-    involvedPerson.textContent = record.persona_involucrada ? record.persona_involucrada : 'No hay personas involucradas'; 
+    involvedPerson.innerHTML = record.persona_involucrada ? record.persona_involucrada : '<td colspan="4">No hay personas involucradas</td>'; 
     confiscation.textContent = record.confiscacion ? record.confiscacion : 'No hay secuestros que mostrar.';
     observations.textContent = record.observaciones ? record.observaciones : 'No hay observaciones que mostrar.';
     switch(record.estado) {

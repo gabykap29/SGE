@@ -17,9 +17,9 @@ const renderRecords = async () => {
     const expedientes = await getRecords();
     if(expedientes.length < 1){
         records.innerHTML = `
-        <div class="alert alert-warning" role="alert">
+        <td class="alert alert-warning" role="alert" colspan="11">
             No hay expedientes cargados en el sistema
-        </div>
+        </td>
         `;
         return;
     };
