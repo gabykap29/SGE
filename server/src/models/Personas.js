@@ -8,7 +8,7 @@ const Persona = sequelize.define('persona',{
         autoIncrement:true
     },
     dni:{
-        type:DataTypes.INTEGER,
+        type:DataTypes.STRING,
         allowNull:false
     },
     apellido:{
@@ -20,7 +20,7 @@ const Persona = sequelize.define('persona',{
         allowNull:false
     },
     domicilio:{
-        type:DataTypes.STRING(50),
+        type:DataTypes.STRING,
         allowNull:false
     },
     clase:{
@@ -31,13 +31,9 @@ const Persona = sequelize.define('persona',{
         type:DataTypes.STRING(50),
         allowNull:false
     },
-    departamento:{
-        type:DataTypes.STRING(50),
-        allowNull:false
-    },
     observaciones:{
         type:DataTypes.STRING,
-        allowNull:false
+        allowNull:true
     },
 });
 

@@ -26,23 +26,37 @@ const renderRecord = async (id) => {
     const confiscation = document.querySelector('#confiscation');
     const observations = document.querySelector('#observations');
     const recordType = document.querySelector('#recordType');
-
+    const origin = document.querySelector('#origin');
     const record = await getRecord(id);
     if(record.length === 0) {
         return;
     };
-    department.textContent = "Departamento/ " + record.localidad.departamento.nombre;
-    locality.textContent = "Localidad/ "+record.localidad.nombre;
-    dateOrigin.textContent = "Fecha Origen/"+ dayjs(record.fecha_origen).format('DD-MM-YYYY');
-    dateStart.textContent = "Fecha Inicio/"+ record.fecha_inicio;
-    jurisdiction.textContent = "Circunscripción/ "+record.juzgado.circunscripcion.nombre;
-    court.textContent = "Juzgado/ "+record.juzgado.nombre;
-    order.textContent = "Orden/ "+record.orden;
-    secretary.textContent = "Secretario/"+record.secretario;
+    department.textContent = "Departamento: " + record.localidad.departamento.nombre;
+    locality.textContent = "Localidad: "+record.localidad.nombre;
+    dateOrigin.textContent = "Fecha Origen: "+ dayjs(record.fecha_origen).format('DD-MM-YYYY');
+    dateStart.textContent = "Fecha Inicio: "+ dayjs(record.fecha_inicio).format('DD-MM-YYYY');
+    jurisdiction.textContent = "Circunscripción: "+record.juzgado.circunscripcion.nombre;
+    court.textContent = "Juzgado: "+record.juzgado.nombre;
+    order.textContent = "Orden: "+record.orden;
+    secretary.textContent = "Secretario: "+record.secretario;
     resume.textContent = record.resumen;
-    involvedPerson.innerHTML = record.persona_involucrada ? record.persona_involucrada : '<td colspan="4">No hay personas involucradas</td>'; 
+    origin.textContent ="Inciado por: "+ record.origen_expediente.nombre;
     confiscation.textContent = record.confiscacion ? record.confiscacion : 'No hay secuestros que mostrar.';
     observations.textContent = record.observaciones ? record.observaciones : 'No hay observaciones que mostrar.';
+    involvedPerson.innerHTML = ``;
+    record.personasEnExpediente.forEach((person)=>{
+        involvedPerson.innerHTML += `
+        <tr>
+            <td>${person.dni}</td>
+            <td>${person.apellido}</td>
+            <td>${person.nombre}</td>
+            <td>${person.clase}</td>
+            <td>${person.domicilio}</td>
+            <td>${person.expediente_persona.descripcion}</td>
+        </tr>
+        `;
+    })
+    
     switch(record.estado) {
         // 1 es completado, 2 es vencido y 3 es en curso
         case "1":

@@ -1,254 +1,328 @@
 <%- include('../layouts/head.ejs'); %>
-    <!--Spinner start-->
-    <%- include('../layouts/spinner.ejs'); %>
-        <!--Spinner end-->
+<!--Spinner start-->
+<%- include('../layouts/spinner.ejs'); %>
+<!--Spinner end-->
 
-        <!-- Sidebard start-->
-        <%- include('../partials/sidebard.ejs'); %>
-            <!-- Sidebard end-->
+<!-- Sidebard start-->
+<%- include('../partials/sidebard.ejs'); %>
+<!-- Sidebard end-->
 
-            <!--navbar start-->
-            <%- include('../partials/navbar.ejs'); %>
-                <!--navbar end-->
+<!--navbar start-->
+<%- include('../partials/navbar.ejs'); %>
+<!--navbar end-->
 
-                <!--Conten start-->
+<!--Conten start-->
 
-                <div class="container-fluid pt-4 px-4 card  content-records-show">
-                    <div class="card bg-light shadow">
-                        <div class="card-header">
-                            <h6 class="text-center" id="recordType"><u>Expediente Judicial elevado 30-01-2024 <img src="/img/comprobado.png" width="25px" alt="icono de comprobado"> </u></h6>
-                        </div>
+<div class="container-fluid pt-4 px-4 card  content-records-show">
+    <div class="card bg-light shadow">
+        <div class="card-header">
+            <h6 class="text-center" id="recordType"><u>Expediente Judicial
+                    elevado 30-01-2024 <img src="/img/comprobado.png"
+                        width="25px" alt="icono de comprobado"> </u></h6>
+        </div>
+        <div class="row m-2">
+            <div class="col-md-6 ">
+                <div class="card bg-light shadow">
+                    <div class="card-header">
+                        <h6 class="text-center" id="recordId"
+                            data-id="<%= id %>"><u>Información General</u></h6>
+                    </div>
                     <div class="row m-2">
-                        <div class="col-md-6 ">
-                            <div class="card bg-light shadow">
-                                <div class="card-header">
-                                    <h6 class="text-center" id="recordId" data-id="<%= id %>"><u>Información General</u></h6>
-                                </div>
-                                <div class="row m-2">
-                                    <div class="col-12 m-2">
-                                        <div class="card  ">
-                                            <div class="card-body" id="department">
-                                                Departamento/Formosa
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 m-2">
-                                        <div class="card ">
-                                            <div class="card-body" id="locality">
-                                                Localidad/Formosa
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 m-2">
-                                        <div class="card ">
-                                            <div class="card-body" id="dateOrigin">
-                                                Fecha Origen/12-12-2021
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 m-2">
-                                        <div class="card ">
-                                            <div class="card-body" id="dateStart">
-                                                Fecha Inicio/12-12-2021
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class=" col-12 m-2">
-                                        <div class="card ">
-                                            <div class="card-body" id="jurisdiction">
-                                               Circunscripción/1° Circunscripción Judicial
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 m-2">
-                                        <div class="card ">
-                                            <div class="card-body" id="court">
-                                                Juzgado/Juzgado de Familia y Menores N° 1
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 m-2">
-                                        <div class="card ">
-                                            <div class="card-body" id="order">
-                                               Orden n° 1
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 m-2">
-                                        <div class="card ">
-                                            <div class="card-body" id="secretary">
-                                                Secretario/Of Juan Perez
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="col-12 m-2">
+                            <div class="card  ">
+                                <div class="card-body" id="department">
+                                    Departamento/Formosa
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="card bg-light shadow" style="height: 43%;">
-                                <div class="card-header">
-                                    <h6 class="text-center"><u>Resumen</u></h6>
-                                </div>
-                                <div class="card-body" id="resume">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Et suscipit quos vero doloribus tenetur accusamus aut dolores nisi! Mollitia quam consectetur ipsum non rem eos doloribus placeat, voluptatem eligendi quasi!
-                                </div>
-                            </div>
-                            <div class="card bg-light shadow mt-5" style="height: 49%;">
-                                <div class="card-header">
-                                    <h6 class="text-center"><u>Personas involucradas</u></h6>
-                                    <!-- Botón para abrir el modal -->
-                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalPerson">
-                                <i class="bi bi-person-plus-fill"></i>
-                            </button>
-                                </div>
-                                <div class="card-body table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">DNI</th>
-                                                <th scope="col">Apellido</th>
-                                                <th scope="col">Nombre</th>
-                                                <th scope="col">Domicilio</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="involvedPerson">
-                                        </tbody>
-                                    </table>
+                        <div class="col-12 m-2">
+                            <div class="card ">
+                                <div class="card-body" id="locality">
+                                    Localidad/Formosa
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="container mt-4">
-                            <div class="card bg-light m-3  shadow" >
-                                <div class="card-header">
-                                    <h6 class="text-center"><u>Secuestros</u></h6>
-                                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalSecuestro">
-                                        <i class="bi bi-file-earmark-plus"></i>
-                                      </button>
-                                </div>
-                                <div class="card-body" id="confiscation">
-                                    <p>No hay secuestros que mostrar.-
-                                    </p>
+                        <div class="col-12 m-2">
+                            <div class="card ">
+                                <div class="card-body" id="origin">
+                                    Iniciado por: Denuncia
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="container mt-2">
-                            <div class="card bg-light m-3  shadow" >
-                                <div class="card-header">
-                                    <h6 class="text-center"><u>Observaciones</u></h6>
-                                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalObservaciones">
-                                        <i class="bi bi-file-plus"></i>
-                                      </button>
+                        <div class="col-12 m-2">
+                            <div class="card ">
+                                <div class="card-body" id="dateOrigin">
+                                    Fecha Origen/12-12-2021
                                 </div>
-                                <div class="card-body" id="observations">
-                                    <p>No hay observaciones que mostrar.-
-                                    </p>
+                            </div>
+                        </div>
+                        <div class="col-12 m-2">
+                            <div class="card ">
+                                <div class="card-body" id="dateStart">
+                                    Fecha Inicio/12-12-2021
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-12 m-2">
+                            <div class="card ">
+                                <div class="card-body" id="jurisdiction">
+                                    Circunscripción/1° Circunscripción Judicial
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 m-2">
+                            <div class="card ">
+                                <div class="card-body" id="court">
+                                    Juzgado/Juzgado de Familia y Menores N° 1
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 m-2">
+                            <div class="card ">
+                                <div class="card-body" id="order">
+                                    Orden n° 1
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 m-2">
+                            <div class="card ">
+                                <div class="card-body" id="secretary">
+                                    Secretario/Of Juan Perez
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card bg-light shadow" style="height: 43%;">
+                    <div class="card-header">
+                        <h6 class="text-center"><u>Resumen</u></h6>
+                    </div>
+                    <div class="card-body" id="resume">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Et suscipit quos vero doloribus tenetur accusamus aut
+                        dolores nisi! Mollitia quam consectetur ipsum non rem
+                        eos doloribus placeat, voluptatem eligendi quasi!
+                    </div>
+                </div>
+                <div class="card bg-light shadow mt-5" style="height: 50%;">
+                    <div class="card-header">
+                        <h6 class="text-center"><u>Personas
+                                involucradas</u></h6>
+                        <!-- Botón para abrir el modal -->
+                        <button type="button"
+                            class="btn  btn-sm btn-modal"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalPerson">
+                            <i class="bi bi-person-plus-fill"></i>
+                        </button>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">DNI</th>
+                                    <th scope="col">Apellido</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Clase</th>
+                                    <th scope="col">Domicilio</th>
+                                    <th scope="col">Vinculación</th>
+                                </tr>
+                            </thead>
+                            <tbody id="involvedPerson">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container mt-4">
+                <div class="card bg-light m-3  shadow">
+                    <div class="card-header">
+                        <h6 class="text-center"><u>Secuestros</u></h6>
+                        <button type="button"
+                            class="btn  btn-sm btn-modal"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalSecuestro">
+                            <i class="bi bi-file-earmark-plus"></i>
+                        </button>
+                    </div>
+                    <div class="card-body" id="confiscation">
+                        <p>No hay secuestros que mostrar.-
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container mt-2">
+                <div class="card bg-light m-3  shadow">
+                    <div class="card-header">
+                        <h6 class="text-center"><u>Observaciones</u></h6>
+                        <button type="button"
+                            class="btn  btn-sm btn-modal"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalObservaciones">
+                            <i class="bi bi-file-plus"></i>
+                        </button>
+                    </div>
+                    <div class="card-body" id="observations">
+                        <p>No hay observaciones que mostrar.-
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                <!-- Modal Personas -->
-                <div class="modal fade" id="modalPerson" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Agregar Persona</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                        </div>
-                        <div class="modal-body">
-                        <!-- Formulario para agregar información de personas -->
-                        <form>
-                            <div class="mb-3">
+    <!-- Modal Personas -->
+    <div class="modal fade" id="modalPerson" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar
+                        Persona</h5>
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulario para agregar información de personas -->
+                    <form id="formPerson">
+                        <div class="mb-3">
                             <label for="nombre" class="form-label">DNI:</label>
-                            <input type="number" class="form-control" id="dni" name="dni" required>
-                            </div>
-                            <div class="mb-3">
-                            <label for="apellido" class="form-label">Apellido:</label>
-                            <input type="text" class="form-control" id="lastname" name="lastname" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="apellido" class="form-label">Nombre:</label>
-                                <input type="text" class="form-control" id="firstname" name="firstname" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="apellido" class="form-label">Domicilio:</label>
-                                <input type="text" class="form-control" id="adress" name="adress" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="apellido" class="form-label">Apellido:</label>
-                                <input type="text" class="form-control" id="lastname" name="lastname" required>
-                            </div>
-
-                            <!-- Agrega más campos según sea necesario -->
-                
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </form>
+                            <input type="number" class="form-control" id="dni"
+                                name="dni" required>
                         </div>
-                    </div>
-                    </div>
+                        <div class="mb-3">
+                            <label for="apellido"
+                                class="form-label">Apellido:</label>
+                            <input type="text" class="form-control"
+                                id="lastname" name="lastname" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido"
+                                class="form-label">Nombre:</label>
+                            <input type="text" class="form-control"
+                                id="firstname" name="firstname" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido"
+                                class="form-label">Domicilio:</label>
+                            <input type="text" class="form-control" id="address"
+                                name="address" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="year"
+                                class="form-label">Clase:</label>
+                            <input type="number" class="form-control" id="year"
+                                name="year" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="locality"
+                                class="form-label">Localidad:</label>
+                            <input type="text" class="form-control"
+                                id="localityPerson"
+                                name="localityPerson" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="observations"
+                                class="form-label">Observaciones</label>
+                            <textarea class="form-control" name="obs"
+                                id="obs" rows="3">
+                            </textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="type"
+                                class="form-label">Tipo</label>
+                            <select name="type" id="type" class="form-select">
+                                <option value="1">Denunciante</option>
+                                <option value="2">Damnificado</option>
+                                <option value="3">Imputado</option>
+                                <option value="4">Testigo</option>
+                                <option value="5">Victima</option>
+                                <option value="6">Otro</option>
+                            </select>
+                        </div>
+                        <button type="submit"
+                            class="btn ">Guardar</button>
+                        <button
+                            class="btn btn-secondary"
+                            type="reset">Borrar campos</button>
+                    </form>
                 </div>
+            </div>
+        </div>
+    </div>
 
-
-                <!-- Modal Secuestros -->
-                <div class="modal fade" id="modalSecuestro" tabindex="-1" aria-labelledby="modalSecuestroLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="modalSecuestroLabel">Registro de Objeto Secuestrado</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                        </div>
-                        <div class="modal-body">
-                        <!-- Formulario para el secuestro -->
-                        <form>
-                            <div class="mb-3">
-                            <label for="descripcion" class="form-label">Secuestros:</label>
-                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Guardar Secuestro</button>
-                        </form>
-                        </div>
-                    </div>
-                    </div>
+    <!-- Modal Secuestros -->
+    <div class="modal fade" id="modalSecuestro" tabindex="-1"
+        aria-labelledby="modalSecuestroLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalSecuestroLabel">Registro de
+                        Objeto Secuestrado</h5>
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
-
-                <!-- Modal Observaciones-->
-                <div class="modal fade" id="modalObservaciones" tabindex="-1" aria-labelledby="modalObservacionesLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="modalObservacionesLabel">Agregar</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                <div class="modal-body">
+                    <!-- Formulario para el secuestro -->
+                    <form>
+                        <div class="mb-3">
+                            <label for="descripcion"
+                                class="form-label">Secuestros:</label>
+                            <textarea class="form-control" id="descripcion"
+                                name="descripcion" rows="3" required></textarea>
                         </div>
-                        <div class="modal-body">
-                        <!-- Formulario para las observaciones -->
-                        <form>
-                            <div class="mb-3">
-                            <label for="contenido" class="form-label">Observaciones:</label>
-                            <textarea class="form-control" id="contenido" name="contenido" rows="3" required></textarea>
-                            </div>
-                            <!-- Agrega más campos según sea necesario -->
-                
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </form>
-                        </div>
-                    </div>
-                    </div>
+                        <button type="submit" class="btn ">Guardar
+                            Secuestro</button>
+                    </form>
                 </div>
-                <!--Content end-->
+            </div>
+        </div>
+    </div>
 
+    <!-- Modal Observaciones-->
+    <div class="modal fade" id="modalObservaciones" tabindex="-1"
+        aria-labelledby="modalObservacionesLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"
+                        id="modalObservacionesLabel">Agregar</h5>
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulario para las observaciones -->
+                    <form>
+                        <div class="mb-3">
+                            <label for="contenido"
+                                class="form-label">Observaciones:</label>
+                            <textarea class="form-control" id="contenido"
+                                name="contenido" rows="3" required></textarea>
+                        </div>
+                        <!-- Agrega más campos según sea necesario -->
 
+                        <button type="submit"
+                            class="btn">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Content end-->
 
-<script
-src="/js/records/recordDetails.js"
-></script>
+    <script
+        src="/js/records/recordDetails.js">
+    </script>
+    <script
+        src="/js/persons/create.js"></script>
 
-                <!--footer and end-->
-                <%- include('../partials/footerAndEnd.ejs'); %>
+    <!--footer and end-->
+    <%- include('../partials/footerAndEnd.ejs'); %>
 
-
-                    <%- include('../layouts/bottom.ejs'); %>
+    <%- include('../layouts/bottom.ejs'); %>

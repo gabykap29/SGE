@@ -12,7 +12,7 @@ formCreateRecord.addEventListener('submit', async (e) => {
     const order = document.querySelector('#order').value;
     const resume = document.querySelector('#resume').value;
     const secretary = document.querySelector('#secretary').value;
-
+    const origin = parseInt(document.querySelector('#origin').value);
     const res = await fetch('/api/expedientes/nuevo', {
         method: 'POST',
         headers: {
@@ -30,6 +30,7 @@ formCreateRecord.addEventListener('submit', async (e) => {
             fecha_origen: dateOrigin,
             resumen: resume,
             secretario: secretary,
+            origenExpediente: origin,
         }),
     });
     const data = await res.json();

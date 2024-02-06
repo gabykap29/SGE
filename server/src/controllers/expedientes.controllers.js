@@ -6,6 +6,9 @@ import Circunscripcion from "../models/Circunscripcion.js";
 import Juzgado from "../models/Juzgados.js";
 import Departamento from "../models/Departamento.js";
 import TipoExpediente from "../models/TipoExpediente.js";
+import ExpedientePersona from "../models/ExpedientePersona.js";
+import Persona from "../models/Personas.js";
+import OrigenExpediente from "../models/OrigenExpediente.js";
 export const expedientesCtrl = {};
 
 expedientesCtrl.getExpedientes = async (req, res) => {
@@ -87,6 +90,14 @@ expedientesCtrl.getExpediente = async (req, res) => {
             model:TipoExpediente,
             as:'tipo_expediente',
             attributes:['nombre']
+          },{ 
+            model:Persona,
+            as: 'personasEnExpediente',
+            through: ExpedientePersona
+          },{
+            model:OrigenExpediente,
+            as:'origen_expediente',
+            attributes:['nombre']
           }
         ]
       }
@@ -117,6 +128,7 @@ expedientesCtrl.crearExpediente = async (req, res) => {
     resumen,
     estado=3,
     secretario,
+    origenExpediente,
   } = req.body;
   const userSession = req.cookies.userSession;
   try {
@@ -139,6 +151,7 @@ expedientesCtrl.crearExpediente = async (req, res) => {
       estado,
       secretario,
       creador: usuario.id,
+      origen_expediente_id: origenExpediente,
     });
     if (nuevoExpediente) {
       return res.status(200).json({

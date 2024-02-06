@@ -11,7 +11,7 @@ import routerDepart from "./server/src/routes/departamentos.routes.js";
 import routerLocalidad from "./server/src/routes/localidades.routes.js";
 import routerCircuns from "./server/src/routes/circunscripcion.routes.js";
 import routerJuzgados from "./server/src/routes/juzgados.routes.js";
-
+import routerPersonas from "./server/src/routes/personas.routes.js";
 const app = express();
 
 // middlewares
@@ -31,6 +31,7 @@ app.use(routerDepart);
 app.use(routerLocalidad);
 app.use(routerCircuns);
 app.use(routerJuzgados);
+app.use(routerPersonas);
 // server
 const port = process.env.PORT || 3000;
 app.listen(port, async () => {

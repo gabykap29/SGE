@@ -34,7 +34,7 @@ const Expediente = sequelize.define(
       allowNull: false,
     },
     resumen: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(750),
       allowNull: false,
     },
     secuestros: {
@@ -69,6 +69,10 @@ const Expediente = sequelize.define(
     id_modificador:{
       type: DataTypes.INTEGER,
       allowNull: true,
+    },
+    origen_expediente_id:{
+      type:DataTypes.INTEGER,
+      allowNull:false,
     },
     //para eliminado logico
     state:{

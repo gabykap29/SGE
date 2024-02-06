@@ -7,9 +7,8 @@ import Usuario from "./usuarios/Usuarios.js";
 import Rol from "./usuarios/Roles.js";
 import Permisos from "./usuarios/Permisos.js";
 import Localidad from "./Localidad.js";
-import OrigenExpediente from "./OrigenExpediente.js";
 import TipoExpediente from "./TipoExpediente.js";
-import { sequelize } from "../database/database.js";
+import OrigenExpediente from "./OrigenExpediente.js";
 import Persona from "./Personas.js";
 import bcrypt from "bcryptjs";
 import { cargarLocalidades } from "../utils/cargarLocalidades.js";
@@ -38,28 +37,22 @@ Juzgado.belongsTo(Circunscripcion, {
   as: "circunscripcion",
 });
 
-Juzgado.hasMany(Expediente, { foreignKey: "juzgado_id", as: "expedientes" });
-Expediente.belongsTo(Juzgado, { foreignKey: "juzgado_id", as: "juzgado" });
-
-Expediente.belongsToMany(Persona, {
-  through: ExpedientePersona,
-  as: "personas",
-});
-Persona.belongsToMany(Expediente, {
-  through: ExpedientePersona,
-  as: "personas",
-});
-
-Expediente.hasMany(Files, { foreignKey: "expediente_id", as: "files" });
-Files.belongsTo(Expediente, { foreignKey: "expediente_id", as: "expediente" });
-
-Expediente.belongsTo(OrigenExpediente, {
-  foreignKey: "origen_expediente_id",
-  as: "origen_expediente",
-});
-OrigenExpediente.hasMany(Expediente, {
-  foreignKey: "origen_expediente_id",
+Juzgado.hasMany(Expediente, {
+  foreignKey: "juzgado_id",
   as: "expedientes",
+});
+Expediente.belongsTo(Juzgado, {
+  foreignKey: "juzgado_id",
+  as: "juzgado",
+});
+
+Expediente.hasMany(Files, {
+  foreignKey: "expediente_id",
+  as: "files",
+});
+Files.belongsTo(Expediente, {
+  foreignKey: "expediente_id",
+  as: "expediente",
 });
 
 Expediente.belongsTo(TipoExpediente, {
@@ -80,8 +73,23 @@ Localidad.hasMany(Expediente, {
   as: "expedientes",
 });
 
-Usuario.belongsTo(Rol, { foreignKey: "rol_id", as: "rol" });
-Rol.hasMany(Usuario, { foreignKey: "rol_id", as: "usuarios" });
+Usuario.belongsTo(Rol, { 
+  foreignKey: "rol_id", 
+  as: "rol" 
+});
+Rol.hasMany(Usuario, { 
+  foreignKey: "rol_id", 
+  as: "usuarios" 
+});
+
+OrigenExpediente.hasMany(Expediente, {
+  foreignKey: "origen_expediente_id",
+  as: "expedientes",
+});
+Expediente.belongsTo(OrigenExpediente, {
+  foreignKey: "origen_expediente_id",
+  as: "origen_expediente",
+});
 
 Rol.belongsToMany(Permisos, {
   through: "permisos_roles",
@@ -94,21 +102,32 @@ Permisos.belongsToMany(Rol, {
   foreignKey: "permiso_id",
 });
 
+Expediente.belongsToMany(Persona, {
+  through: ExpedientePersona,
+  as: "personasEnExpediente",
+  foreignKey: "expediente_id",
+});
+Persona.belongsToMany(Expediente, {
+  through: ExpedientePersona,
+  as: "expedientesDePersona",
+  foreignKey: "persona_id",
+});
+
 //orden de creacion de tablas
 await Departamento.sync({ force: false });
 await Localidad.sync({ force: false });
 await Circunscripcion.sync({ force: false });
 await Juzgado.sync({ force: false });
 await TipoExpediente.sync({ force: false });
-await OrigenExpediente.sync({ force: false });
 await Expediente.sync({ force: false });
 await Rol.sync({ force: false });
 await RolesPermisos.sync({ force: false });
 await Permisos.sync({ force: false });
 await Usuario.sync({ force: false });
 await Persona.sync({ force: false });
-
+await ExpedientePersona.sync({ force: false });
 await Files.sync({ force: false });
+await OrigenExpediente.sync({ force: false });
 
 export const comprobacionesDB = async () => {
   const countRoles = await Rol.count();
@@ -120,7 +139,7 @@ export const comprobacionesDB = async () => {
   const countJuzgados = await Juzgado.count();
   const countRolesPermisos = await RolesPermisos.count();
   const countTipoExpediente = await TipoExpediente.count();
-
+  const countOrigenExpediente = await OrigenExpediente.count();
   //Circunscripciones
   if (countCircunscripciones === 0) {
     await cargarCircunscripciones();
@@ -150,7 +169,6 @@ export const comprobacionesDB = async () => {
     //Generar password encriptado con bcrypt
     const fechaActual = new Date();
     const fechaEnUTC = fechaActual.toISOString(); // Obtener la fecha en formato UTC
-
 
     const opcionesFecha = {
       timeZone: "UTC",
@@ -233,7 +251,19 @@ export const comprobacionesDB = async () => {
   } else {
     console.log("Ya existen juzgados en la base de datos");
   }
+  //Origen Expedientes
+if(countOrigenExpediente === 0){
+  const origenExpedientes = ["Denuncia", "Oficio", "Jefe SRH", "Otros"];
+  origenExpedientes.forEach(async (origen) => {
+    await OrigenExpediente.create({ nombre: origen });
+  });
+}
+
+
 };
+
+
+
 
 export default {
   Circunscripcion,
@@ -245,7 +275,6 @@ export default {
   Rol,
   Permisos,
   Localidad,
-  OrigenExpediente,
   TipoExpediente,
   Persona,
   RolesPermisos,

@@ -294,6 +294,16 @@ a{
 .content-records-show{
     font-size: small;
 }
-.card-show-record{
+.btn-modal:hover{
+    background-color: #7976a1;
+}
 
+.btn-modal{
+    background-color: #857bf3;
+    color: white;
+}
+
+.modal-body .btn{
+    background-color: #857bf3;
+    color: white;
 }
