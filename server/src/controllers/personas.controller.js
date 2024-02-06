@@ -1,6 +1,5 @@
 import Persona from "../models/Personas.js";
 import ExpedientePersona from "../models/ExpedientePersona.js";
-import Expediente from "../models/Expediente.js";
 export const getPersonas = async (req, res) => {
   try {
     const { page, size } = req.query;

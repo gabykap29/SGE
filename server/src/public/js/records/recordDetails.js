@@ -27,6 +27,7 @@ const renderRecord = async (id) => {
     const observations = document.querySelector('#observations');
     const recordType = document.querySelector('#recordType');
     const origin = document.querySelector('#origin');
+    const confiscationInput = document.querySelector('#confiscationInput');
     const record = await getRecord(id);
     if(record.length === 0) {
         return;
@@ -41,7 +42,8 @@ const renderRecord = async (id) => {
     secretary.textContent = "Secretario: "+record.secretario;
     resume.textContent = record.resumen;
     origin.textContent ="Inciado por: "+ record.origen_expediente.nombre;
-    confiscation.textContent = record.confiscacion ? record.confiscacion : 'No hay secuestros que mostrar.';
+    confiscation.textContent = record.secuestros!=null ? record.secuestros : 'No hay secuestros que mostrar.';
+    confiscationInput.value = record.secuestros !=null ? record.secuestros : '';
     observations.textContent = record.observaciones ? record.observaciones : 'No hay observaciones que mostrar.';
     involvedPerson.innerHTML = ``;
     record.personasEnExpediente.forEach((person)=>{

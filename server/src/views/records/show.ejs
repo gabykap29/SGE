@@ -263,19 +263,21 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalSecuestroLabel">Registro de
-                        Objeto Secuestrado</h5>
+                    <h5 class="modal-title" id="modalSecuestroLabel">Agregar
+                        secuestros</h5>
                     <button type="button" class="btn-close"
                         data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
                     <!-- Formulario para el secuestro -->
-                    <form>
+                    <form id="formConfiscation">
                         <div class="mb-3">
-                            <label for="descripcion"
+                            <label for="formConfiscation"
                                 class="form-label">Secuestros:</label>
-                            <textarea class="form-control" id="descripcion"
-                                name="descripcion" rows="3" required></textarea>
+                            <textarea class="form-control"
+                                id="confiscationInput"
+                                name="confiscationInput" rows="3"
+                                required></textarea>
                         </div>
                         <button type="submit" class="btn ">Guardar
                             Secuestro</button>
@@ -298,12 +300,12 @@
                 </div>
                 <div class="modal-body">
                     <!-- Formulario para las observaciones -->
-                    <form>
+                    <form id="formObservations">
                         <div class="mb-3">
-                            <label for="contenido"
+                            <label for="observationsInput"
                                 class="form-label">Observaciones:</label>
-                            <textarea class="form-control" id="contenido"
-                                name="contenido" rows="3" required></textarea>
+                            <textarea class="form-control" id="observationsInput"
+                                name="observationsInput" rows="3" required></textarea>
                         </div>
                         <!-- Agrega más campos según sea necesario -->
 
@@ -317,11 +319,14 @@
     <!--Content end-->
 
     <script
-        src="/js/records/recordDetails.js">
-    </script>
+        src="/js/records/recordDetails.js"
+    ></script>
     <script
-        src="/js/persons/create.js"></script>
-
+        src="/js/persons/create.js"
+    ></script>
+    <script
+    src="/js/records/edit.js"
+    ></script>
     <!--footer and end-->
     <%- include('../partials/footerAndEnd.ejs'); %>
 

@@ -167,6 +167,47 @@ expedientesCtrl.crearExpediente = async (req, res) => {
   }
 };
 
+expedientesCtrl.agregarSecuestros = async (req,res)=>{
+  try {
+    const {id} = req.params;
+    const {secuestros}=req.body;
+    const expediente = await Expediente.findByPk(id);
+    if(!expediente){
+      return res.status(404).json({
+        message: "No se encontro el expediente",
+      });
+    };
+    await expediente.update({secuestros:secuestros});
+    return res.status(201).json({message:'Secuestros agregados correctamente'})
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Error interno del servidor al agregar secuestros",
+    });
+  };
+};
+
+expedientesCtrl.agregarObservaciones = async (req,res)=>{
+  try {
+    const {id} = req.params;
+    const {observaciones}=req.body;
+
+    const expediente = await Expediente.findByPk(id);
+    if(!expediente){
+      return res.status(404).json({
+        message: "No se encontro el expediente",
+      });
+    };
+    await expediente.update({observaciones:observaciones});
+    return res.status(201).json({message:'Observaciones agregadas correctamente'})
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Error interno del servidor al agregar observaciones",
+    });
+  };
+};
+
 expedientesCtrl.eliminarExpediente = async (req, res) => {
   const { id } = req.params;
   try {

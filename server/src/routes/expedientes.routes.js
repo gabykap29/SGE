@@ -17,6 +17,8 @@ routerExpedientes.get('/expedientes/:id', (req, res) => {
 
 routerExpedientes.get('/api/tipoExpedientes',getTipoExpedientes);
 routerExpedientes.get('/api/expedientes',expedientesCtrl.getExpedientes);
+routerExpedientes.put('/api/expedientes/secuestros/:id',expedientesCtrl.agregarSecuestros);
+routerExpedientes.put('/api/expedientes/observaciones/:id',expedientesCtrl.agregarObservaciones);
 routerExpedientes.get('/api/expedientes/:id',expedientesCtrl.getExpediente);
 routerExpedientes.post('/api/expedientes/nuevo',expedientesCtrl.crearExpediente);
 export default routerExpedientes;
