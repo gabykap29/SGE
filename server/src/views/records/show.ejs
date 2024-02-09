@@ -175,6 +175,25 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="container mt-2">
+                <div class="card bg-light m-3  shadow">
+                    <div class="card-header">
+                        <h6 class="text-center"><u>Archivos Adjuntos</u></h6>
+                        <button type="button"
+                            class="btn  btn-sm btn-modal"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalFiles">
+                            <i class="bi bi-file-plus"></i>
+                        </button>
+                    </div>
+                    <div class="card-body" id="recordPdf">
+                        <p>No hay observaciones que mostrar.-
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Modal Personas -->
@@ -316,6 +335,29 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalFiles" tabindex="-1"
+    aria-labelledby="modalFilesLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalFilesLabel">Subir Archivos</h5>
+                <button type="button" class="btn-close"
+                    data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario para el secuestro -->
+                <form id="formFiles" enctype="multipart/form-data">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupFile01">PDF</label>
+                        <input type="file" class="form-control" id="file-input" name="pdf">
+                    </div>
+                    <button type="submit" class="btn ">Subir</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
     <!--Content end-->
 
     <script
@@ -326,6 +368,9 @@
     ></script>
     <script
     src="/js/records/edit.js"
+    ></script>
+    <script
+    src="/js/files/uploads.js"
     ></script>
     <!--footer and end-->
     <%- include('../partials/footerAndEnd.ejs'); %>

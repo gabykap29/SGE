@@ -29,6 +29,7 @@ const renderRecord = async (id) => {
     const recordType = document.querySelector('#recordType');
     const origin = document.querySelector('#origin');
     const confiscationInput = document.querySelector('#confiscationInput');
+    const recordPdf = document.querySelector('#recordPdf');
     const record = await getRecord(id);
     if(record.length === 0) {
         return;
@@ -46,6 +47,7 @@ const renderRecord = async (id) => {
     confiscation.textContent = record.secuestros!=null ? record.secuestros : 'No hay secuestros que mostrar.';
     confiscationInput.value = record.secuestros !=null ? record.secuestros : '';
     observations.textContent = record.observaciones ? record.observaciones : 'No hay observaciones que mostrar.';
+    recordPdf.innerHTML = record.files.length > 0 ? `<a href="/uploads/${record.files[0].url}" class="btn" target="_blank"><img src="/img/pdf.png" width=40 > </a>` : 'No hay archivo adjunto';
     involvedPerson.innerHTML = ``;
     record.personasEnExpediente.forEach((person)=>{
         involvedPerson.innerHTML += `

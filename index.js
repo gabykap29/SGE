@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 import routerAuth from "./server/src/routes/auth.routes.js";
 import routerExpedientes from "./server/src/routes/expedientes.routes.js";
 import { connectDB } from "./server/src/database/database.js";
-import Departamento, { comprobacionesDB } from './server/src/models/Asosiaciones.js'
+import { comprobacionesDB } from './server/src/models/Asosiaciones.js'
 import routerDepart from "./server/src/routes/departamentos.routes.js";
 import routerLocalidad from "./server/src/routes/localidades.routes.js";
 import routerCircuns from "./server/src/routes/circunscripcion.routes.js";

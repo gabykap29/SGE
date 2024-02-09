@@ -9,6 +9,7 @@ import TipoExpediente from "../models/TipoExpediente.js";
 import ExpedientePersona from "../models/ExpedientePersona.js";
 import Persona from "../models/Personas.js";
 import OrigenExpediente from "../models/OrigenExpediente.js";
+import File from "../models/Files.js";
 export const expedientesCtrl = {};
 
 expedientesCtrl.getExpedientes = async (req, res) => {
@@ -39,7 +40,8 @@ expedientesCtrl.getExpedientes = async (req, res) => {
             model:TipoExpediente,
             as:'tipo_expediente',
             attributes:['nombre']
-          }
+          },
+          
         ],
         limit: size,
         offset: page * size,
@@ -98,6 +100,9 @@ expedientesCtrl.getExpediente = async (req, res) => {
             model:OrigenExpediente,
             as:'origen_expediente',
             attributes:['nombre']
+          },{
+            model:File,
+            as:'files',
           }
         ]
       }
