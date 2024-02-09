@@ -82,8 +82,8 @@
 .content {
     margin-left: 250px;
     min-height: 100vh;
-    background: #FFFFFF;
     transition: 0.5s;
+    
 }
 
 @media (min-width: 992px) {
@@ -307,3 +307,26 @@ a{
     background-color: #857bf3;
     color: white;
 }
+
+#elevate {
+    position: relative; /* Permite posicionar elementos hijos con respecto a este botón */
+  }
+  
+  #elevate::before {
+    content: "Elevar Expediente"; /* Texto del span */
+    position: absolute; /* Posición absoluta con respecto al botón */
+    top: -35px; /* Ajusta la distancia vertical desde el botón */
+    left: 0; /* Ajusta la distancia horizontal desde el botón */
+    background-color: black; /* Color de fondo del span */
+    color: white; /* Color del texto del span */
+    padding: 4px 8px; /* Espaciado interno del span */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 12px; /* Tamaño de fuente */
+    opacity: 0; /* Inicialmente oculto */
+    transition: opacity 0.3s ease; /* Transición suave al mostrar/ocultar */
+  }
+  
+  #elevate:hover::before {
+    opacity: 1; /* Mostrar el span cuando el ratón está sobre el botón */
+  }
+  

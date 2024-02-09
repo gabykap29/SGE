@@ -208,6 +208,25 @@ expedientesCtrl.agregarObservaciones = async (req,res)=>{
   };
 };
 
+expedientesCtrl.elevarExpediente = async (req,res)=>{
+  try {
+    const {id} = req.params;
+    const expediente = await Expediente.findByPk(id);
+    if(!expediente){
+      return res.status(404).json({
+        message: "No se encontro el expediente",
+      });
+    };
+    await expediente.update({estado:1,fecha_elevacion:new Date()});
+    return res.status(201).json({message:'Expediente elevado correctamente'})
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Error interno del servidor al elevar expediente",
+    });
+  };
+};
+
 expedientesCtrl.eliminarExpediente = async (req, res) => {
   const { id } = req.params;
   try {

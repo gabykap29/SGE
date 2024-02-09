@@ -1,3 +1,4 @@
+
 const getRecord = async (id) => {
     try {
         const res = await fetch(`/api/expedientes/${id}`);
@@ -58,17 +59,17 @@ const renderRecord = async (id) => {
         </tr>
         `;
     })
-    
     switch(record.estado) {
         // 1 es completado, 2 es vencido y 3 es en curso
         case "1":
-            recordType.innerHTML = `Expediente ${record.tipo_expediente.nombre} <span class="badge bg-success">Completado</span>`;
+            let fechaElevacion = record.fecha_elevacion ? dayjs(record.fecha_elevacion).format('DD-MM-YYYY') : 'No elevado';
+            recordType.innerHTML = `Expediente ${record.tipo_expediente.nombre} <button class="btn" id="elevate"> <span class="badge bg-success">Expediente Elevado en fecha ${fechaElevacion}</span>  </button>`;
             break;
         case "2":
-            recordType.innerHTML = `Expediente ${record.tipo_expediente.nombre} <span class="badge bg-danger">Vencido</span>`;
+            recordType.innerHTML = `Expediente ${record.tipo_expediente.nombre} <button class="btn" id="elevate"> <span class="badge bg-danger">Vencido</span> </button>`;
             break;
         case "3":
-            recordType.innerHTML = `Expediente ${record.tipo_expediente.nombre} <span class="badge bg-warning">En curso</span>`;
+            recordType.innerHTML = `Expediente ${record.tipo_expediente.nombre} <button class="btn" id="elevate"> <span class="badge bg-warning">En curso</span> </button>`;
             break;
         default:
             recordType.textContent = 'Sin estado';
@@ -76,7 +77,41 @@ const renderRecord = async (id) => {
     };
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+const elevateRecord =async (id)=>{
+    const res = await fetch(`/api/expedientes/elevartExpediente/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    if(res.status === 404) {
+        alertify.error('No se encontro el expediente');
+        return;
+    };
+    const data = await res.json();
+    alertify.success(data.message);
     const recordId = document.querySelector('#recordId').dataset.id;
     renderRecord(recordId);
+
+};
+
+
+document.addEventListener('DOMContentLoaded',async () => {
+    const recordId = document.querySelector('#recordId').dataset.id;
+    await renderRecord(recordId);
+
+    const elevateBtn = document.getElementById('elevate');
+    elevateBtn.addEventListener('click',(e)=>{
+    e.preventDefault();
+    alertify.confirm("Estas a punto de elevar el expediente, ¿Estas seguro? Esta acción es irreversible!",
+    function(){
+        alertify.success('Ok');
+        elevateRecord(recordId);
+    },
+    function(){
+        alertify.error('Cancelado!');
+    });
+
+});
+
 });

@@ -12,71 +12,86 @@
 <!--navbar end-->
 
 <div class="container-fluid pt-4 px-4 card">
-    <div class="row g-4 d-flex justify-content-between">
-        <div class="card col-sm-3 mx-2">
-            <div class="card-header bg-white">
-                <h6>Expedientes</h6>
+    <div class="card bg-light">
+        <div class="card-header">
+            <strong> Dashboard </strong>
+        </div>
+        <div class="row g-4 d-flex justify-content-between m-2">
+            <div class="col-sm-3 mx-2">
+                <div class="card">
+                    <div class="card-header ">
+                        <h6>Expedientes</h6>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="text-center">6</h2>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <h2 class="text-center">6</h2>
+            <div class=" col-sm-3 mx-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h6>Completados</h6>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="text-center">6</h2>
+                    </div>
+                </div>
+            </div>
+            <div class=" col-sm-3 mx-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h6>En proceso</h6>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="text-center">6</h2>
+                    </div>
+                </div>
+            </div>
+            <div class=" col-sm-3 mx-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h6>Proximos a vencer</h6>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="text-center">6</h2>
+                    </div>
+                </div>
+            </div>
+            <div class=" col-sm-3 mx-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h6>Vencidos</h6>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="text-center">6</h2>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="card col-sm-3 mx-2">
-            <div class="card-header bg-white">
-                <h6>Completados</h6>
+        <hr>
+        <div class="col-sm-12 ">
+            <div class=" rounded h-100 p-4 table-responsive">
+                <h6 class="mb-4">Ultimos expedientes cargados</h6>
+                <table class="table table-striped ">
+                    <thead >
+                        <tr>
+                            <th scope="col">orden</th>
+                            <th scope="col">Departamento</th>
+                            <th scope="col">Localidad</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Circunscripcion</th>
+                            <th scope="col">Juzgado</th>
+                            <th scope="col">Inicio</th>
+                            <th scope="col">Origen</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Secretario</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="records" >
+                    </tbody>
+                </table>
             </div>
-            <div class="card-body">
-                <h2 class="text-center">6</h2>
-            </div>
-        </div>
-        <div class="card col-sm-3 mx-2">
-            <div class="card-header bg-white">
-                <h6>En proceso</h6>
-            </div>
-            <div class="card-body">
-                <h2 class="text-center">6</h2>
-            </div>
-        </div>
-        <div class="card col-sm-3 mx-2">
-            <div class="card-header bg-white">
-                <h6>Proximos a vencer</h6>
-            </div>
-            <div class="card-body">
-                <h2 class="text-center">6</h2>
-            </div>
-        </div>
-        <div class="card col-sm-3 mx-2">
-            <div class="card-header bg-white">
-                <h6>Vencidos</h6>
-            </div>
-            <div class="card-body">
-                <h2 class="text-center">6</h2>
-            </div>
-        </div>
-    </div>
-    <hr>
-    <div class="col-sm-12 ">
-        <div class=" rounded h-100 p-4 table-responsive">
-            <h6 class="mb-4">Ultimos expedientes cargados</h6>
-            <table class="table table-striped ">
-                <thead >
-                    <tr>
-                        <th scope="col">orden</th>
-                        <th scope="col">Departamento</th>
-                        <th scope="col">Localidad</th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Circunscripcion</th>
-                        <th scope="col">Juzgado</th>
-                        <th scope="col">Inicio</th>
-                        <th scope="col">Origen</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Secretario</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="records" >
-                </tbody>
-            </table>
         </div>
     </div>
     

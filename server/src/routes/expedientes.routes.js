@@ -19,6 +19,7 @@ routerExpedientes.get('/api/tipoExpedientes',getTipoExpedientes);
 routerExpedientes.get('/api/expedientes',expedientesCtrl.getExpedientes);
 routerExpedientes.put('/api/expedientes/secuestros/:id',expedientesCtrl.agregarSecuestros);
 routerExpedientes.put('/api/expedientes/observaciones/:id',expedientesCtrl.agregarObservaciones);
+routerExpedientes.put('/api/expedientes/elevartExpediente/:id',expedientesCtrl.elevarExpediente);
 routerExpedientes.get('/api/expedientes/:id',expedientesCtrl.getExpediente);
 routerExpedientes.post('/api/expedientes/nuevo',expedientesCtrl.crearExpediente);
 export default routerExpedientes;
