@@ -11,8 +11,11 @@ routerExpedientes.get('/home', (req, res) => {
 routerExpedientes.get('/crearNuevo', (req, res) => {
     return res.render('records/create',{page: 'Nuevo Expediente'});
 });
-routerExpedientes.get('/expedientes/:id', (req, res) => {
+routerExpedientes.get('/expedientes/buscar/:id', (req, res) => {
     return res.render('records/show',{page: 'Vista de Expediente', id: req.params.id});
+});
+routerExpedientes.get('/expedientes/filtros',(req,res)=>{
+    return res.render('records/filters',{page:'filtros'});
 });
 
 //apis

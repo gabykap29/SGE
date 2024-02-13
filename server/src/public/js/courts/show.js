@@ -18,6 +18,7 @@ const renderCourt = async (id) => {
     try {
         const court = await getCourt(id);
         selectCourt.innerHTML = '';
+        selectCourt.innerHTML = `<option value="">Seleccione un juzgado</option>`;
         court.length < 1 ? selectCourt.value = 'No hay juzgados cargados!' : (
             court.forEach(court => {
                 const option = document.createElement('option');
