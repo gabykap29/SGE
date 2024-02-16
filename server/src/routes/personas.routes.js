@@ -1,12 +1,12 @@
 import express from "express";
 const routerPersonas = express.Router();
-import { buscarPersona, crearPersona } from "../controllers/personas.controller.js";
-
-
-
-
+import { isAutenticate } from "../middlewares/isAutenticate.js";
+import {
+  buscarPersona,
+  crearPersona,
+} from "../controllers/personas.controller.js";
 
 //apis
-routerPersonas.post("/api/personas/create", crearPersona);
-routerPersonas.get('/api/personas', buscarPersona);
+routerPersonas.post("/api/personas/create", isAutenticate, crearPersona);
+routerPersonas.get("/api/personas", isAutenticate, buscarPersona);
 export default routerPersonas;
