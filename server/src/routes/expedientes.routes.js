@@ -1,6 +1,6 @@
 import express from "express";
 import { getTipoExpedientes } from "../controllers/tipoExpediente.controllers.js";
-import { expedientesCtrl } from "../controllers/expedientes.controllers.js";
+import verificarExpedientesVencidos, { expedientesCtrl } from "../controllers/expedientes.controllers.js";
 import { uploadFile } from "../controllers/files.controllers.js";
 import upload from "../utils/multerConfig.js";
 import { isAutenticate } from "../middlewares/isAutenticate.js";
@@ -64,4 +64,6 @@ routerExpedientes.post(
   upload.single("pdf"),
   uploadFile
 );
+routerExpedientes.get('/api/countEstado', expedientesCtrl.getCountExpedientes);
+routerExpedientes.get('/api/countVencimiento', verificarExpedientesVencidos);
 export default routerExpedientes;

@@ -47,7 +47,16 @@ const renderRecord = async (id) => {
     confiscation.textContent = record.secuestros!=null ? record.secuestros : 'No hay secuestros que mostrar.';
     confiscationInput.value = record.secuestros !=null ? record.secuestros : '';
     observations.textContent = record.observaciones ? record.observaciones : 'No hay observaciones que mostrar.';
-    recordPdf.innerHTML = record.files.length > 0 ? `<a href="/uploads/${record.files[0].url}" class="btn" target="_blank"><img src="/img/pdf.png" width=40 > </a>` : 'No hay archivo adjunto';
+    recordPdf.innerHTML = ``;
+    if(record.files.length > 0) {
+            for (let i = 0; i < record.files.length; i++) {
+                recordPdf.innerHTML += `<a href="/uploads/${record.files[i].url}" class="btn" target="_blank"><img src="/img/pdf.png" width=40 > <span>${record.files[i].descripcion}</span> </a>`            }
+    }else{
+        recordPdf.innerHTML = `<p>No hay archivos adjuntos</p>`;
+    };
+    
+    
+    
     involvedPerson.innerHTML = ``;
     record.personasEnExpediente.forEach((person)=>{
         involvedPerson.innerHTML += `

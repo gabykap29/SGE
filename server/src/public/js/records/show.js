@@ -53,7 +53,7 @@ const renderRecords = async (url,page,size) => {
             <td>${estado}</td>        
             <td>${expediente.secretario}</td>
             <td>
-                <a href="/expedientes/buscar/${expediente.id}" class="btn btn-outline btn-sm btn-show"><i class="bi bi-eye-fill"></i></a>
+                <a href="/expedientes/buscar/${expediente.id}" class="btn btn-outline btn-sm btn-show "><i class="bi bi-eye-fill"></i></a>
             </td>
         </tr>
         `;

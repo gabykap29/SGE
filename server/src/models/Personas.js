@@ -9,7 +9,8 @@ const Persona = sequelize.define('persona',{
     },
     dni:{
         type:DataTypes.STRING,
-        allowNull:false
+        allowNull:false,
+        unique:true
     },
     apellido:{
         type:DataTypes.STRING(50),

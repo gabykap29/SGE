@@ -1,4 +1,5 @@
 const formFiles = document.getElementById('formFiles');
+const fileDescription = document.getElementById('file-description');
 
 const uploadFile = async(file, id)=>{
     console.log(file);
@@ -8,6 +9,8 @@ const uploadFile = async(file, id)=>{
     };
     const formData = new FormData();
     formData.append('pdf', file);
+    formData.append('descripcion', fileDescription.value);
+
 
     const res = await fetch(`/api/expedientes/upload/${id}`, {
         method: 'POST',

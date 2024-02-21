@@ -6,6 +6,7 @@ export const uploadFile = async (req, res) => {
   try {
     const  pdf  = req.file;
     const { id } = req.params;
+    const { descripcion } = req.body;
     const expediente = await Expediente.findOne({
         where:{id},
         include:{
@@ -16,7 +17,7 @@ export const uploadFile = async (req, res) => {
     if (!expediente) {
       return res.status(404).json({ message: "No se encontro el expediente" });
     }
-    if(expediente.files.length > 0){
+    if(expediente.files.length > 1){
         return res.status(400).json({ message: "Ya existe un archivo para este expediente" });
     };
     if (pdf.mimetype !== "application/pdf") {
@@ -29,6 +30,7 @@ export const uploadFile = async (req, res) => {
     const file = await Files.create({
       url: pdf.filename,
       expediente_id: id,
+      descripcion,
     });
     if (!file) {
       return res

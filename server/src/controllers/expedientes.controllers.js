@@ -11,6 +11,7 @@ import Persona from "../models/Personas.js";
 import OrigenExpediente from "../models/OrigenExpediente.js";
 import File from "../models/Files.js";
 export const expedientesCtrl = {};
+import sequelize from 'sequelize';
 import {Op} from 'sequelize';
 
 expedientesCtrl.getExpedientes = async (req, res) => {
@@ -174,6 +175,34 @@ expedientesCtrl.getExpediente = async (req, res) => {
   }
 };
 
+expedientesCtrl.getCountExpedientes = async (req, res) => {
+  try {
+    const expedientes = await Expediente.findAll({
+      attributes: [
+        'estado',
+        [sequelize.fn('COUNT', sequelize.col('estado')), 'expedientes_por_estado']
+      ],
+      group: ['estado'],
+    });
+    
+    const cantExpedientes = await Expediente.count();
+
+    if (!expedientes || expedientes.length === 0 || !cantExpedientes) {
+      return res.status(404).json({
+        message: "No se encontraron expedientes",
+      });
+    }
+
+    return res.status(200).json({ status: 200, data: expedientes, count: cantExpedientes });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Error interno del servidor al obtener expedientes",
+    });
+  }
+};
+
+
 expedientesCtrl.crearExpediente = async (req, res) => {
   const {
     circunscripcion_id,
@@ -269,6 +298,48 @@ expedientesCtrl.agregarObservaciones = async (req, res) => {
     });
   }
 };
+
+import moment from "moment";
+
+const verificarExpedientesVencidos = async (req, res) => {
+  try {
+    // Obtener la fecha actual
+    const fechaActual = moment().toDate();
+    
+    // Calcular la fecha límite para considerar los expedientes como vencidos (hace 15 días)
+    const fechaLimite = moment().subtract(15, 'days').toDate();
+
+    // Consulta para buscar todos los expedientes en curso
+    const expedientesEnCurso = await Expediente.findAll({
+      where: {
+        estado: '3' // En curso
+      }
+    });
+
+    // Filtrar los expedientes en curso que están vencidos y actualizar su estado a Vencido
+    const expedientesVencidos = [];
+    for (const expediente of expedientesEnCurso) {
+      if (moment(expediente.fecha_origen).isBefore(fechaLimite)) {
+        expediente.estado = '2'; // Actualizar el estado a Vencido
+        await expediente.save(); // Guardar el expediente actualizado en la base de datos
+        expedientesVencidos.push(expediente); // Agregar el expediente a la lista de vencidos
+      };
+    };
+
+    // Enviar la lista de expedientes vencidos como respuesta
+    res.status(200).json({ status: 200, data: expedientesVencidos });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Error interno del servidor al verificar expedientes vencidos",
+    });
+  }
+};
+
+
+export default verificarExpedientesVencidos;
+
+
 
 expedientesCtrl.elevarExpediente = async (req, res) => {
   try {

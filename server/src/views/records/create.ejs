@@ -14,9 +14,12 @@
 <!--Conten start-->
 
 <div class="container-fluid pt-4 px-4 card">
-  <div class="card bg-light">
-    <div class="card-header">
-      <h6 class="text-secondary">Crear nuevo Expediente</h6>
+  <div class="card mb-2" style="background-color: rgb(243, 244, 253);">
+    <div class="card-header" style="background-color: rgb(232, 239, 248);">
+      <h6 class="text-secondary">
+        <i class="bi bi-pencil-square"></i>
+        Crear nuevo Expediente
+      </h6>
     </div>
     <div class="card-body">
       <form class="row g-3 needs-validation" id="formCreateRecord">
@@ -102,13 +105,6 @@
   </div>
 
 </div>
-
-<!--Content end-->
-
-<!--footer and end-->
-<%- include('../partials/footerAndEnd.ejs'); %>
-
-<%- include('../layouts/bottom.ejs'); %>
 <script
   src="/js/departments/show.js"></script>
 <script
@@ -121,3 +117,9 @@
   src="/js/courts/show.js"></script>
 <script
   src="/js/records/create.js"></script>
+<!--Content end-->
+
+<!--footer and end-->
+<%- include('../partials/footerAndEnd.ejs'); %>
+
+<%- include('../layouts/bottom.ejs'); %>

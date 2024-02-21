@@ -81,7 +81,7 @@ formPerson.addEventListener('submit', async (e) => {
         }),
     });
     const data = await res.json();
-    console.log(data);
+
     if(res.status === 201){
         alertify.success(data.message);
         formPerson.reset();

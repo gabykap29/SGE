@@ -291,6 +291,11 @@ a{
     background: #857bf3;
     color: white;
 }
+.btn-show:hover{
+    background: #5a51c7;
+    color: white;
+    transition: 0.2s;
+}
 .content-records-show{
     font-size: small;
 }
@@ -330,3 +335,10 @@ a{
     opacity: 1; /* Mostrar el span cuando el ratón está sobre el botón */
   }
   
+.resultados:hover{
+    background-color: #cccccc;
+    color: rgb(0, 0, 0);
+    scale: 1.1;
+    transition: 0.3s;
+
+}

@@ -1,0 +1,102 @@
+<%- include('../layouts/head.ejs'); %>
+<!--Spinner start-->
+<%- include('../layouts/spinner.ejs'); %>
+<!--Spinner end-->
+
+<!-- Sidebard start-->
+<%- include('../partials/sidebard.ejs'); %>
+<!-- Sidebard end-->
+
+<!--navbar start-->
+<%- include('../partials/navbar.ejs'); %>
+<!--navbar end-->
+
+<!--Conten start-->
+
+<div class="container-fluid pt-4 px-4 card mb-2 h-75">
+    <div class="card" style="background-color: rgb(243, 244, 253);">
+        <div class="card-header" style="background-color: rgb(232, 239, 248);">
+            <i class="bi bi-person"></i>
+          Vista Persona
+        </div>
+    
+    <div class="card-body">
+        <div class="row">
+            <div class="">
+                <div class="card-body">
+                    <div class="card">
+                        <div class="card-body m-3" id="card-person" data-id="<%= id %>">
+                            <p>
+                                <i class="bi bi-person-fill me-2"></i>
+                                <span id="nameComplete"><strong>Nombre y Apellido:</strong></span>
+                            </p>
+                            <p>
+                                <i class="bi bi-credit-card-fill me-2"></i>
+                                <span id="dni"><strong>DNI:</strong></span>
+                            </p>
+                            <p>
+                                <i class="bi bi-house"></i>
+                                <span id="addres"><strong>Domicilio:</strong></span>
+                            </p>
+                            <p>
+                                <i class="bi bi-calendar4-week"></i>
+                                <span id="class"><strong>Clase:</strong></span>
+                            </p>
+                            <p>
+                                <i class="bi bi-geo-alt"></i>
+                                <span id="locality"><strong>Localidad:</strong></span>
+                            </p>
+                            <p>
+                                <i class="bi bi-card-text"></i>
+                                <span id="description"><strong>Descripción: </strong></span>
+                            </p>
+                        </div>
+                    </div>
+                            <div class=" rounded mt-2 table-responsive">
+                                <table class="table table-striped small table-hover table-bordered">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">orden</th>
+                                            <th scope="col">Departamento</th>
+                                            <th scope="col">Localidad</th>
+                                            <th scope="col">Tipo</th>
+                                            <th scope="col">Circunscripcion</th>
+                                            <th scope="col">Juzgado</th>
+                                            <th scope="col">Inicio</th>
+                                            <th scope="col">Origen</th>
+                                            <th scope="col">Estado</th>
+                                            <th scope="col">Secretario</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="records" >
+                                        <tr>
+                                            <td colspan="11" class="alert alert-primary text-center">
+                                                <div class="spinner-border" role="status">
+                                                    <span class="visually-hidden">Cargando...</span>
+                                                  </div>
+                                                  
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="text-center">
+                                    <button class="btn btn-show btn-sm" id="btnPrevious"> < </button>
+                                    <button class="btn btn-show btn-sm" id="btnNext"> > </button>
+                                </div>
+                            </div>
+                      </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script
+src="/js/persons/showDetails.js"
+></script>
+    <!--footer and end-->
+    <%- include('../partials/footerAndEnd.ejs'); %>
+
+    <%- include('../layouts/bottom.ejs'); %>

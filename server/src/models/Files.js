@@ -15,6 +15,10 @@ const Files = sequelize.define('files',{
         type:DataTypes.INTEGER,
         allowNull:false
     },
+    descripcion:{
+        type:DataTypes.STRING(50),
+        allowNull:false
+    }
 },{
     timestamps:false,
     sequelize,
