@@ -242,10 +242,16 @@ expedientesCtrl.crearExpediente = async (req, res) => {
     });
     if (nuevoExpediente) {
       return res.status(200).json({
+        status: 200,
         message: "Expediente creado correctamente",
         data: nuevoExpediente,
-      });
-    }
+      })
+      }else{
+        return res.status(400).json({
+          status: 400,
+          message: "Error al crear expediente",
+        });
+    };
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -301,7 +307,7 @@ expedientesCtrl.agregarObservaciones = async (req, res) => {
 
 import moment from "moment";
 
-const verificarExpedientesVencidos = async (req, res) => {
+const verificarExpedientesVencidos = async (req,res, next) => {
   try {
     // Obtener la fecha actual
     const fechaActual = moment().toDate();
@@ -325,15 +331,12 @@ const verificarExpedientesVencidos = async (req, res) => {
         expedientesVencidos.push(expediente); // Agregar el expediente a la lista de vencidos
       };
     };
-
-    // Enviar la lista de expedientes vencidos como respuesta
-    res.status(200).json({ status: 200, data: expedientesVencidos });
+    console.log('expedientes verificados!');
+    next();
   } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: "Error interno del servidor al verificar expedientes vencidos",
-    });
-  }
+    console.log('Error al verificar el vencimiento de los expedientes código de error:',error);
+    next();
+  };
 };
 
 

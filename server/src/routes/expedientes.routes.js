@@ -29,7 +29,7 @@ routerExpedientes.get(
   getTipoExpedientes
 );
 routerExpedientes.get(
-  "/api/expedientes",
+  "/api/expedientes",verificarExpedientesVencidos,
   isAutenticate,
   expedientesCtrl.getExpedientes
 );
@@ -49,7 +49,7 @@ routerExpedientes.put(
   expedientesCtrl.elevarExpediente
 );
 routerExpedientes.get(
-  "/api/expedientes/:id",
+  "/api/expedientes/:id",verificarExpedientesVencidos,
   isAutenticate,
   expedientesCtrl.getExpediente
 );

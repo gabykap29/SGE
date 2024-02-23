@@ -342,3 +342,9 @@ a{
     transition: 0.3s;
 
 }
+/* Ajustar posición del botón de cerrar pestaña */
+.ajs-modal-header .ajs-close {
+    float: right !important;
+    margin-top: -40px; /* Ajusta según sea necesario */
+  }
+  

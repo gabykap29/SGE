@@ -15,11 +15,20 @@ formConfiscation.addEventListener('submit', async (e) => {
         }),
     });
     if(res.status === 404) {
-        alertify.error('No se encontro el expediente');
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "No se encontró el expediente!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
         return;
     };
     const data = await res.json();
-    alertify.success(data.message);
+    Swal.fire({
+        title: "Éxito!",
+        text: data.message,
+        icon: "success"
+      });
     const recordId = document.querySelector('#recordId').dataset.id;
     renderRecord(recordId)
     $('#modalSecuestro').modal('hide');
@@ -40,11 +49,20 @@ formObservations.addEventListener('submit', async (e) => {
         }),
     });
     if(res.status === 404) {
-        alertify.error('No se encontro el expediente');
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "No se encontró el expediente!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
         return;
     };
     const data = await res.json();
-    alertify.success(data.message);
+    Swal.fire({
+        title: "Éxito!",
+        text: data.message,
+        icon: "success"
+      });
     $('#modalObservaciones').modal('hide');
     const recordId = document.querySelector('#recordId').dataset.id;
     renderRecord(recordId);

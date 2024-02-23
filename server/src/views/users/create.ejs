@@ -1,0 +1,76 @@
+<%- include('../layouts/head.ejs'); %>
+<!--Spinner start-->
+<%- include('../layouts/spinner.ejs'); %>
+<!--Spinner end-->
+
+<!-- Sidebard start-->
+<%- include('../partials/sidebard.ejs'); %>
+<!-- Sidebard end-->
+
+<!--navbar start-->
+<%- include('../partials/navbar.ejs'); %>
+<!--navbar end-->
+
+<!--Conten start-->
+
+<div class="container-fluid pt-4 px-4 card">
+  <div class="card mb-2" style="background-color: rgb(243, 244, 253);">
+    <div class="card-header" style="background-color: rgb(232, 239, 248);">
+      <h6 class="text-secondary mt-2">
+        <img src="/img/agregar-usuario.png" alt="icono de agregar usuario" width="25">
+        Crear nuevo usuario
+      </h6>
+    </div>
+    <div class="card-body">
+      <form class="row g-3 needs-validation" id="formUser">
+        <div class="col-md-6 position-relative">
+          <label for="validationTooltip04"
+            class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="firstname" required>
+        </div>
+        <div class="col-md-6 position-relative">
+          <label for="validationTooltip04" class="form-label">Apellido</label>
+          <input type="text" class="form-control" id="lastname" required>
+        </div>
+        <div class="col-md-6 position-relative">
+          <label for="validationTooltip04" class="form-label">Usuario</label>
+          <input type="text" class="form-control" id="username">
+        </div>
+        <div class="col-md-6 position-relative">
+          <label for="validationTooltip04"
+            class="form-label">Rol</label>
+          <select class="form-select input" id="rol"
+            name="rol" required>
+            <option selected disabled>Selecciona una opción</option>
+            <option value="1">Administrador</option>
+            <option value="2">Supervisor</option>
+            <option value="3">Usuario</option>
+            <option value="4">Visualizador</option>
+          </select>
+        </div>
+        <div class="col-md-6 position-relative">
+            <label for="validationTooltip04" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" required>
+          </div>
+          <div class="col-md-6 position-relative">
+            <label for="validationTooltip04" class="form-label">Confirmar Contraseña</label>
+            <input type="password" class="form-control" id="confirmPassword" required>
+          </div>
+        <div class="col-12 mt-5">
+          <button class="btn btn-show" type="submit">Crear</button>
+          <button class="btn btn-secondary" type="reset">Borrar campos</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+<script
+src="/js/users/create.js"
+></script>
+<!--Content end-->
+
+<!--footer and end-->
+<%- include('../partials/footerAndEnd.ejs'); %>
+
+<%- include('../layouts/bottom.ejs'); %>

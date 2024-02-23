@@ -15,15 +15,30 @@ formLogin.addEventListener("submit", async (e) => {
     });
     if (!res.ok) {
       const { message } = await res.json();
-      return  alertify.error(`Error message: ${message}`);
+      Swal.fire({
+        icon: "error",
+        title: "Error al iniciar sesión!",
+        text: message,
+        footer: '<a href="#">Why do I have this issue?</a>'
+      });
+      return;  
     }
     const { message } = await res.json();
-    alertify.success(`Success message: ${message} `);
+    Swal.fire({
+      title: "Good job!",
+      text: message,
+      icon: "success"
+    });
     setTimeout(() => {
       window.location.href = "/home";
     }, 2000);
   } catch (error) {
     console.log(error);
-    return  alertify.error(`Error message: ${error}`);
+    return  Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.message,
+      footer: '<a href="#">Why do I have this issue?</a>'
+    });;
   }
 });

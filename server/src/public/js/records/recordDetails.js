@@ -96,11 +96,20 @@ const elevateRecord =async (id)=>{
         },
     });
     if(res.status === 404) {
-        alertify.error('No se encontro el expediente');
+        Swal.fire({
+            icon: "error",
+            title: "Error!",
+            text: "No se pudo elevar el expediente!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
         return;
     };
     const data = await res.json();
-    alertify.success(data.message);
+    Swal.fire({
+        title: "Éxito!",
+        text: data.message,
+        icon: "success"
+      });
     const recordId = document.querySelector('#recordId').dataset.id;
     renderRecord(recordId);
 
@@ -114,15 +123,26 @@ document.addEventListener('DOMContentLoaded',async () => {
     const elevateBtn = document.getElementById('elevate');
     elevateBtn.addEventListener('click',(e)=>{
     e.preventDefault();
-    alertify.confirm("Estas a punto de elevar el expediente, ¿Estas seguro? Esta acción es irreversible!",
-    function(){
-        alertify.success('Ok');
-        elevateRecord(recordId);
-    },
-    function(){
-        alertify.error('Cancelado!');
-    });
+    Swal.fire({
+        title: "Estas seguro?",
+        text: "Estas a punto de marcar como elevado este expediente!",
+        icon: "warning",
+        showCancelButton: true,
+        
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Confirmar"
+      }).then((result) => {
+        if (result.isConfirmed) {
+            elevateRecord(recordId);
+          Swal.fire({
+            title: "Deleted!",
+            text: "Expediente elevado con éxito!",
+            icon: "success"
+          });
+        }
+      });
+             
+      });
 
 });
 
-});

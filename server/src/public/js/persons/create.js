@@ -83,13 +83,22 @@ formPerson.addEventListener('submit', async (e) => {
     const data = await res.json();
 
     if(res.status === 201){
-        alertify.success(data.message);
+        Swal.fire({
+            title: "Éxito!",
+            text: data.message,
+            icon: "success"
+          });
         formPerson.reset();
         //Funcion del archivo recordDetails.js
         const recordId = document.querySelector('#recordId').dataset.id;
         renderRecord(recordId);
         $('#modalPerson').modal('hide');
     }else{
-        alertify.error(data.message);
+        Swal.fire({
+            icon: "error",
+            title: "Error 400 - Bad Request!",
+            text: "Compruebe los campos e intente nuevamente!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
     };
 });

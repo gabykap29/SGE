@@ -8,13 +8,23 @@ const getCountEstado = async () => {
         const res = await fetch('/api/countEstado');
         const data = await res.json();
         if(data.status === 404){
-            alertify.error(data.message);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: data.message,
+                footer: '<a href="#">Why do I have this issue?</a>'
+              });
             return [];
         };
         return data;
     } catch (error) {
         console.log(error);
-        alertify.error('Error interno del servidor al cargar los expedientes');
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: error.message,
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
     };
 };
 

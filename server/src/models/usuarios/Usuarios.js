@@ -30,11 +30,11 @@ const Usuario = sequelize.define(
       allowNull: false,
     },
     fechaCreacion: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       allowNull: false,
     },
     fechaModificacion: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       allowNull: true,
     },
     estado:{

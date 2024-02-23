@@ -166,32 +166,9 @@ export const comprobacionesDB = async () => {
   }
 
   if (countUsuarios === 0) {
-    //Generar password encriptado con bcrypt
     const fechaActual = new Date();
-    const fechaEnUTC = fechaActual.toISOString(); // Obtener la fecha en formato UTC
-
-    const opcionesFecha = {
-      timeZone: "UTC",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    const opcionesHora = {
-      timeZone: "UTC",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-    };
-
-    const fechaFormateada = fechaActual.toLocaleDateString(
-      "es-ES",
-      opcionesFecha
-    );
-    const horaFormateada = fechaActual.toLocaleTimeString(
-      "es-ES",
-      opcionesHora
-    );
-
+    fechaActual.setUTCHours(fechaActual.getUTCHours() - 3);
+    const fechaCreacion = fechaActual;
     const password = "admin";
     const salt = await bcrypt.genSalt(10);
     //Usuario por defecto
@@ -202,7 +179,7 @@ export const comprobacionesDB = async () => {
       username: "admin",
       password: passwordHash,
       rol_id: 1,
-      fechaCreacion: fechaFormateada + " " + horaFormateada,
+      fechaCreacion:fechaCreacion,
     });
   } else {
     console.log("Ya existen usuarios en la base de datos");

@@ -34,13 +34,22 @@ formCreateRecord.addEventListener('submit', async (e) => {
         }),
     });
     const data = await res.json();
-    if (!res.ok) {
-        alertify.error(data.message);
+    console.log(data);
+    if (data.status !== 200) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: data.message || "Error al crear expediente. Intente de nuevo.",
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
         return;
     };
-    alertify.success(data.message);
-    console.log(data);
+    Swal.fire({
+        title: "Éxito!",
+        text: data.message,
+        icon: "success"
+      });
     setTimeout(() => {
-        window.location.href = '/home';
+        window.location.href = `/expedientes/buscar/${data.data.id}`;
     }, 2000);
 });

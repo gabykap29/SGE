@@ -19,10 +19,19 @@ const uploadFile = async(file, id)=>{
     const data = await res.json();
 
     if(data.status === 400 || data.status === 500) {
-        alertify.error(data.message);
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Error al subir el archivo!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
         return;
     };
-    alertify.success(data.message);
+    Swal.fire({
+        title: "Éxito!",
+        text: data.message,
+        icon: "success"
+      });
 };
 
 formFiles.addEventListener('submit', async (e) => {

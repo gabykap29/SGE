@@ -15,7 +15,12 @@ const getRecords = async (url,page=0, size=10) => {
         return data;
     } catch (error) {
         console.log(error);
-        return alertify.error('Error al cargar los expedientes');
+        return Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });;
     };
 };
 
@@ -89,13 +94,27 @@ document.addEventListener('DOMContentLoaded',async()=>{
             const estado = document.getElementById('state').value;
             const origenExpediente = document.getElementById('originRecord').value;
             const palabrasClave = document.getElementById('keywords').value;
+            if(departamento && localidad === ""|| localidad === null){
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Debe seleccionar una localidad",
+                    footer: '<a href="#">Why do I have this issue?</a>'
+                  });
+                return;
+            };
 
             url = `/api/expedientes?orden=${orden}&departamento=${departamento}&localidad=${localidad}&circunscripcion=${circunscripcion}&juzgado=${juzgado}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}&estado=${estado}&origenExpediente=${origenExpediente}&palabrasClave=${palabrasClave}&`;
 
             await renderRecords(url);
         } catch (error) {
             console.log(error);
-            alertify.error('Error al filtrar los expedientes!');
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+                footer: '<a href="#">Why do I have this issue?</a>'
+              });;
         };
     });
     
