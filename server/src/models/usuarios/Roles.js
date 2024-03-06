@@ -1,6 +1,6 @@
 import {sequelize} from '../../database/database.js';
 import {DataTypes} from 'sequelize';
-
+import Permisos from './Permisos.js';
 const Rol = sequelize.define('rol',{
     id:{
         type:DataTypes.INTEGER,
@@ -17,5 +17,8 @@ const Rol = sequelize.define('rol',{
     modelName:'rol',
     tableName:'rol',
 });
+
+
+
 
 export default Rol;

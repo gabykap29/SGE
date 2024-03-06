@@ -347,4 +347,9 @@ a{
     float: right !important;
     margin-top: -40px; /* Ajusta según sea necesario */
   }
-  
+
+.table-tools{
+    overflow:auto;
+    max-height: 200px;
+    overflow-y: auto;
+}

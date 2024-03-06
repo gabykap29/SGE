@@ -1,3 +1,4 @@
+const btnLogout = document.getElementById('btn-logout');
 (function ($) {
     "use strict";
 
@@ -47,12 +48,69 @@
         loop: true,
         nav : false
     });
-
-
-
-
-
- 
-    
 })(jQuery);
 
+
+
+btnLogout.addEventListener('click',()=>{
+    let timerInterval;
+Swal.fire({
+  title: "Cerrando sesion...",
+  timer: 2000,
+  timerProgressBar: true,
+  didOpen: () => {
+    Swal.showLoading();
+    const timer = Swal.getPopup().querySelector("b");
+    timerInterval = setInterval(() => {
+      timer.textContent = `${Swal.getTimerLeft()}`;
+    }, 100);
+  },
+  willClose: () => {
+    clearInterval(timerInterval);
+    const res = fetch('/logout',{
+        method:'GET'
+    });
+    res.then((res)=>{
+        if(res.status === 200){
+            window.location.href = '/';
+        }
+    });
+  }
+})
+});
+
+//funcion para obtener el nombre del usuario y mostrarlo en el sidebar
+
+localStorage.getItem('fullname') ? document.getElementById('fullname').innerText = JSON.parse(localStorage.getItem('fullname')) : null;
+localStorage.getItem('rol') ? document.getElementById('rol').innerText = JSON.parse(localStorage.getItem('rol')) : null;
+
+
+//visualizar elementos del dom segun el permiso.. si lo modifican no pasa nada, porque el sistema valida los permisos desde el servidor, no desde el cliente!
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const userManager = document.getElementById('userManager');
+    const createRecord = document.getElementById('createRecord');
+    const permissions = JSON.parse(localStorage.getItem('permissions'));
+    const editRecord = document.querySelectorAll('.btnEdit');
+
+    let permissionsUser = permissions.includes('Ver Usuario', 'Editar Usuario', 'Eliminar Usuario', 'Crear Usuario ');
+    let permissionsRecordsCreate = permissions.includes('Crear Expediente')
+    let permissionsRecordsEdit = permissions.includes('Editar Expediente');
+    if(!permissionsUser){
+        userManager.remove();
+    };
+
+    if(!permissionsRecordsCreate){
+        createRecord.remove();
+    };
+
+    if(permissionsRecordsEdit === false){
+        createRecord.remove();
+    };
+
+    if(!permissionsRecordsEdit){
+        editRecord.forEach((record)=>{
+            record.style.display = 'none';
+        });
+    };
+    });

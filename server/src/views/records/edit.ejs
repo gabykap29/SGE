@@ -16,13 +16,13 @@
 <div class="container-fluid pt-4 px-4 card">
   <div class="card mb-2" style="background-color: rgb(243, 244, 253);">
     <div class="card-header" style="background-color: rgb(232, 239, 248);">
-      <h6 class="text-secondary mt-2">
+      <h6 class="text-secondary mt-2" id="recordID" data-id="<%= id %>">
         <i class="bi bi-pencil-square"></i>
-        Crear nuevo Expediente
+        Editar Expediente
       </h6>
     </div>
     <div class="card-body">
-      <form class="row g-3 needs-validation" id="formCreateRecord">
+      <form class="row g-3 needs-validation" id="formEditRecord">
         <div class="col-md-6 position-relative">
           <label for="validationTooltip04"
             class="form-label">Departamento</label>
@@ -82,6 +82,10 @@
           <label for="validationCustom05" class="form-label">Iniciado por:</label>
           <select class="form-select" name="origin" id="origin">
             <option disabled selected>Seleccione una opción</option>
+            <option value=1>Denuncia</option>
+            <option value=2>Oficio</option>
+            <option value=3>Jefe SRH</option>
+            <option value=4>Otros</option>
           </select>
         </div>
         <div class="col-12">
@@ -93,7 +97,7 @@
         </div>
 
         <div class="col-12">
-          <button class="btn btn-show" type="submit">Subir Expediente</button>
+          <button class="btn btn-show" type="submit">Guardar cambios</button>
           <button class="btn btn-secondary" type="reset">Borrar campos</button>
         </div>
       </form>
@@ -108,14 +112,12 @@
 <script
   src="/js/recordsTypes/show.js"></script>
 <script
-src="/js/originRecord/show.js"
-></script>
-<script
   src="/js/districts/show.js"></script>
 <script
   src="/js/courts/show.js"></script>
 <script
-  src="/js/records/create.js"></script>
+src="/js/records/formEdit.js"
+></script>
 <!--Content end-->
 
 <!--footer and end-->

@@ -30,8 +30,9 @@ const renderRecords = async (url,page,size) => {
     console.log(expedientes);
     if(expedientes.length < 1){
         records.innerHTML = `
-        <td class="alert alert-warning" role="alert" colspan="11">
-            No hay expedientes cargados en el sistema
+        <td class="alert alert-primary text-center" role="alert" colspan="11">
+        <i class="bi bi-info-circle-fill"></i>    
+        No hay expedientes cargados en el sistema
         </td>
         `;
         return;
@@ -59,6 +60,7 @@ const renderRecords = async (url,page,size) => {
             <td>${expediente.secretario}</td>
             <td>
                 <a href="/expedientes/buscar/${expediente.id}" class="btn btn-outline btn-sm btn-show "><i class="bi bi-eye-fill"></i></a>
+                <a href="/expedientes/editar/${expediente.id}" class="btn btn-outline-success btn-sm mt-1 btnEdit"><i class="bi bi-pencil-fill"></i></a>
             </td>
         </tr>
         `;

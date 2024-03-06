@@ -92,15 +92,17 @@ Expediente.belongsTo(OrigenExpediente, {
 });
 
 Rol.belongsToMany(Permisos, {
-  through: "permisos_roles",
+  through: RolesPermisos,
   as: "permisos",
   foreignKey: "rol_id",
 });
+
 Permisos.belongsToMany(Rol, {
-  through: "permisos_roles",
+  through: RolesPermisos,
   as: "roles",
   foreignKey: "permiso_id",
 });
+
 
 Expediente.belongsToMany(Persona, {
   through: ExpedientePersona,
@@ -121,8 +123,8 @@ await Juzgado.sync({ force: false });
 await TipoExpediente.sync({ force: false });
 await Expediente.sync({ force: false });
 await Rol.sync({ force: false });
-await RolesPermisos.sync({ force: false });
 await Permisos.sync({ force: false });
+await RolesPermisos.sync({ force: false });
 await Usuario.sync({ force: false });
 await Persona.sync({ force: false });
 await ExpedientePersona.sync({ force: false });

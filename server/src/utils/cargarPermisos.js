@@ -19,9 +19,15 @@ const permisos = [
   "Crear Departamento",
   "Editar Departamento",
   "Eliminar Departamento",
-  ",Crear Localidad",
+  "Crear Localidad",
   "Editar Localidad",
   "Eliminar Localidad",
+  "Crear Persona",
+  "Editar Persona",
+  "Eliminar Persona",
+  "Ver Persona",
+  "Bloquear Usuario",
+  "Desbloquear Usuario",
 ];
 
 export const cargarPermisos = async () => {

@@ -15,3 +15,36 @@ export const getDepart = async (req,res)=>{
     };
 };
 
+
+export const crearDepart = async (req,res)=>{
+    const {nombre} = req.body;
+    try {
+        const departamento = await Departamento.create({nombre});
+        if(!departamento){
+            return res.status(400).json({message:'Error al crear el departamento'});
+        };
+        return res.status(201).json({message:'Departamento creado con éxito!', data:departamento});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({message:'Error interno del servidor al crear el departamento'});
+    };
+};
+
+export const eliminarDepart = async (req,res)=>{
+    const {id}= req.params;
+    try {
+        const departamento = await Departamento.destroy({
+            where:{
+                id
+            },
+            cascade:true
+        });
+        if(!departamento){
+            return res.status(400).json({message:'Error al eliminar el departamento'});
+        };
+        return res.status(200).json({message:'Departamento eliminado con éxito!'});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({message:'Error interno del servidor al eliminar el departamento'});
+    }
+};

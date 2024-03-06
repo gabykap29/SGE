@@ -38,7 +38,7 @@ formEditUser.addEventListener('submit', async (e) => {
         const lastname = document.getElementById('lastname').value;
         const firstname = document.getElementById('firstname').value;
         const username = document.getElementById('username').value;
-        const role = document.getElementById('rol').value;
+        const role = document.getElementById('role').value;
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
         if(password !== confirmPassword){

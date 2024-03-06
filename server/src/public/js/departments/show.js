@@ -22,8 +22,36 @@ const renderDepartments = async () => {
             option.textContent = department.nombre;
             SelectDepart.appendChild(option);
         }));
+    //renderizar en tabla de tools
+    if(departments.data.length > 0 && document.querySelector('#departments')){
+        const table = document.querySelector('#departments');
+        departments.data.forEach((department,index)=>{
+            const row = table.insertRow();
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${department.nombre}</td>
+                <td class="text-center">
+                    <button class="btn btn-danger btnDeleteDepartment btn-sm" data-id="${department.id}"><i class="bi bi-x-octagon-fill"></i></button>
+                </td>
+            `;
+        });
+    }
 };
 
 document.addEventListener('DOMContentLoaded',async ()=>{
     await renderDepartments();
+    const btnDeleteDepartment = document.querySelectorAll('.btnDeleteDepartment');
+    btnDeleteDepartment.forEach(btn=>{
+        btn.addEventListener('click',async ()=>{
+            const id = btn.parentElement.parentElement.firstElementChild.textContent;
+            const res = await fetch(`/api/departamentos/${id}`,{
+                method: 'DELETE'
+            });
+            if(res.ok){
+                btn.parentElement.parentElement.remove();
+            }else{
+                alertify.error('Error al eliminar el departamento');
+            };
+        });
+    });
 });

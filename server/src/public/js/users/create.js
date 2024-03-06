@@ -5,11 +5,11 @@ formUser.addEventListener('submit', async (e) => {
     e.preventDefault();
     try {
         const lastname = document.getElementById('lastname').value;
-    const firstname = document.getElementById('firstname').value;
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const role = document.getElementById('rol').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
+        const firstname = document.getElementById('firstname').value;
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const role = document.getElementById('role').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
 
     if (password !== confirmPassword) {
         alertify.error('Las contraseñas no coinciden');

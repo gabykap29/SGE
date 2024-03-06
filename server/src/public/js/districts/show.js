@@ -22,6 +22,20 @@ const renderDistricts = async () => {
             option.textContent = district.nombre;
             selectDistrict.appendChild(option);
         }));
+    if(districs.data.length > 0 && document.querySelector('#districts')){
+        const table = document.querySelector('#districts');
+        table.innerHTML = '';
+        districs.data.forEach(district=>{
+            const row = table.insertRow();
+            row.innerHTML = `
+                <td>${district.id}</td>
+                <td>${district.nombre}</td>
+                <td class="text-center">
+                    <button class="btn btn-danger btnDeleteDistrict btn-sm" data-id="${districs.id}"><i class="bi bi-x-octagon-fill"></i></button>
+                </td>
+            `;
+        });
+    };
 };
 
 document.addEventListener('DOMContentLoaded',async()=>{

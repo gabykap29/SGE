@@ -94,10 +94,42 @@ formPerson.addEventListener('submit', async (e) => {
         renderRecord(recordId);
         $('#modalPerson').modal('hide');
     }else{
+        const errorFieldsMap = {
+            dni: '#dni',
+            apellido: '#lastname',
+            nombre: '#firstname',
+            domicilio: '#address',
+            observaciones: '#obs',
+            tipo: '#type',
+            clase: '#year',
+            localidad: '#localityPerson',
+        };
+        let errors= '';
+        data.errors.forEach(error =>{
+            errors += `<li class="" style="text-align: left;"> ${error.msg} </li>`;
+        });
+
+        data.errors.forEach(error => {
+            const fieldId = errorFieldsMap[error.path];
+            if (fieldId) {
+                const inputField = document.querySelector(fieldId);
+                if (inputField) {
+                    inputField.classList.add('is-invalid');
+                }
+            }
+        });
+
         Swal.fire({
             icon: "error",
             title: "Error 400 - Bad Request!",
-            text: "Compruebe los campos e intente nuevamente!",
+            html:`
+            <div class="alert alert-danger">
+                <h4 class="alert-heading" >Se encontraron errores:</h4>
+                <ul class=" mb-0">
+                    ${errors}
+                </ul>
+            </div>
+            `,
             footer: '<a href="#">Why do I have this issue?</a>'
           });
     };

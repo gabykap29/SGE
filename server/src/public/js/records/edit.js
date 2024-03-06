@@ -64,6 +64,8 @@ formObservations.addEventListener('submit', async (e) => {
         icon: "success"
       });
     $('#modalObservaciones').modal('hide');
-    const recordId = document.querySelector('#recordId').dataset.id;
+    const recordId = parseInt(document.querySelector('#recordId').dataset.id);
     renderRecord(recordId);
 });
+
+

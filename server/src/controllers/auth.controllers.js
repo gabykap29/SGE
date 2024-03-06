@@ -1,17 +1,26 @@
 import bcrypt from 'bcryptjs';
 import Usuario from '../models/usuarios/Usuarios.js';
 import  generarJWT from '../helpers/generarJWT.js';
+import Rol from '../models/usuarios/Roles.js';
+import Permisos from '../models/usuarios/Permisos.js';
 
 const MaxIntentos = 5;
 let intentos = 0;
 
 export const login = async (req, res) => {
     const { username, password } = req.body;
-    console.log(username, password)
     try {
         const usuario = await Usuario.findOne({
             where: {
                 username,
+            },
+            include:{
+                model: Rol,
+                as: 'rol',
+                include: {
+                    model: Permisos,
+                    as: 'permisos'
+                },
             },
         });
         if (!usuario) {
@@ -24,7 +33,7 @@ export const login = async (req, res) => {
                 message: 'Usuario Bloqueado!, comuniquese con un administrador!',
             });
         };
-
+        console.log(usuario);
         const validPassword = bcrypt.compareSync(password, usuario.password);
         if (!validPassword) {
             intentos++;
@@ -39,6 +48,10 @@ export const login = async (req, res) => {
                 message: 'Usuario / Password no son correctos - password',
             });
         };
+        let permisos = [];
+        usuario.rol.permisos.forEach(permiso => {
+            permisos.push(permiso.nombre);
+        });
         const token = await generarJWT(usuario.id, usuario.rol_id);
         const cookieExpires = process.env.CookiesExpireTime || 1;
 
@@ -52,7 +65,10 @@ export const login = async (req, res) => {
           res.cookie('userSession', token, cookiesOptions);
 
         return res.status(200).json({
-            message:'Inicio de sesion exitoso!'
+            message:'Inicio de sesion exitoso!',
+            permisos:permisos,
+            rol:usuario.rol.nombre,
+            fullname: usuario.nombre + ' ' + usuario.apellido,
         });
 
     } catch (error) {
@@ -63,3 +79,9 @@ export const login = async (req, res) => {
     }
 };
 
+export const cerrarSesion = async (req, res) => {
+    res.clearCookie('userSession');
+    return res.status(200).json({
+        message: 'Sesion cerrada!'
+    });
+};

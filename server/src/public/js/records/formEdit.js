@@ -1,7 +1,38 @@
-const formCreateRecord = document.querySelector('#formCreateRecord');
-const formSelect = document.querySelectorAll('.form-select');
-formCreateRecord.addEventListener('submit', async (e) => {
+const formEditRecord = document.getElementById('formEditRecord');
+
+const getRecord = async (id) => {
+    const res = await fetch(`/api/expedientes/${id}`);
+    const {data} = await res.json();
+    if(res.status === 404) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "No se encontró el expediente!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
+        return;
+    };
+    return data;
+};
+
+const renderRecord = async (id) => {
+    const recordId = id;
+    const recordEdit = await getRecord(recordId);
+    const dateInit = dayjs(recordEdit.fecha_inicio).format('YYYY-MM-DD');
+    const dateOrigin = dayjs(recordEdit.fecha_origen).format('YYYY-MM-DD');
+
+    document.getElementById('selectType').value = recordEdit.tipo_expediente.nombre;
+    document.getElementById('dateStart').value = dateInit;
+    document.getElementById('dateOrigin').value = dateOrigin;
+    document.getElementById('origin').value = recordEdit.origenExpediente;
+    document.getElementById('secretary').value = recordEdit.secretario;
+    document.getElementById('selectCourt').value = recordEdit.juzgado;
+    document.getElementById('resume').value = recordEdit.resumen;
+};
+
+formEditRecord.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const id = document.getElementById('recordID').dataset.id;
     const department = document.querySelector('#selectDepar').value;
     const locality = document.querySelector('#selecLocalidad').value;
     const type = document.querySelector('#selectType').value;
@@ -13,10 +44,11 @@ formCreateRecord.addEventListener('submit', async (e) => {
     const resume = document.querySelector('#resume').value;
     const secretary = document.querySelector('#secretary').value;
     const origin = parseInt(document.querySelector('#origin').value);
-    const res = await fetch('/api/expedientes/nuevo', {
-        method: 'POST',
+
+    const res = await fetch(`/api/editar/expediente/${id}`,{
+        method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify({
             departamento_id: department,
@@ -34,8 +66,17 @@ formCreateRecord.addEventListener('submit', async (e) => {
         }),
     });
     const data = await res.json();
-    console.log(data);
-    if (data.status !== 200) {
+    if(res.status === 404) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "No se encontró el expediente!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
+        return;
+    };
+
+    if ( data.status !== 201) {
         const errorFieldsMap = {
             departamento_id: '#selectDepar',
             localidad_id: '#selecLocalidad',
@@ -83,6 +124,16 @@ formCreateRecord.addEventListener('submit', async (e) => {
         icon: "success"
       });
     setTimeout(() => {
-        window.location.href = `/expedientes/buscar/${data.data.id}`;
+        window.location.href = '/home';
     }, 2000);
+    return;
+
+
+});
+
+document.addEventListener('DOMContentLoaded', async () => {
+    if(document.getElementById('recordID')){
+        const recordId = document.querySelector('#recordID').dataset.id;
+        await renderRecord(recordId);
+    };
 });

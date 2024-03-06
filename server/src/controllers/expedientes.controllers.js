@@ -282,6 +282,52 @@ expedientesCtrl.agregarSecuestros = async (req, res) => {
   }
 };
 
+expedientesCtrl.editarExpediente = async (req, res) => {
+  const { id } = req.params;
+  const {
+    tipo_expediente_id,
+      orden,
+      localidad_id,
+      circunscripcion_id,
+      juzgado_id,
+      fecha_inicio,
+      fecha_origen,
+      resumen,
+      secretario,
+      origen_expediente_id: origenExpediente,
+} = req.body;
+try {
+  
+  const expediente = await Expediente.findByPk(id);
+  if (!expediente) {
+    return res.status(404).json({
+      message: "No se encontro el expediente",
+    });
+  }
+  await expediente.update({
+    tipo_expediente_id,
+    orden,
+    localidad_id,
+    circunscripcion_id,
+    juzgado_id,
+    fecha_inicio,
+    fecha_origen,
+    resumen,
+    secretario
+  });
+  return res
+    .status(201)
+    .json({ status: 201 ,message: "Expediente editado correctamente" });
+} catch (error) {
+  console.log(error);
+  return res.status(500).json({
+    message: "Error interno del servidor al editar expediente",
+  });
+};
+
+
+};
+
 expedientesCtrl.agregarObservaciones = async (req, res) => {
   try {
     const { id } = req.params;

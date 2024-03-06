@@ -8,4 +8,11 @@ routerAuth.get('/',(req,res)=>{
 
 //apis
 routerAuth.post('/login', login);
+
+routerAuth.get('/logout',(req,res)=>{
+    res.clearCookie('userSession');
+    return res.status(200).json({
+        message:'Sesion cerrada'
+    });
+});
 export default routerAuth;

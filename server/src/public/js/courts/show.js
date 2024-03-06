@@ -3,7 +3,7 @@ const selectCourt = document.querySelector('#selectCourt');
 
 const getCourt = async (id) => {
     try {
-        const res = await fetch(`http://localhost:3000/api/juzgados/${id}`);
+        const res = await fetch(`/api/juzgados/${id}`);
         if(!res.ok){
             throw new Error('Error en la petición');
         };
@@ -16,7 +16,7 @@ const getCourt = async (id) => {
 
 const renderCourt = async (id) => {
     try {
-        const court = await getCourt(id);
+        const court = await getCourt(id);        
         selectCourt.innerHTML = '';
         selectCourt.innerHTML = `<option value="">Seleccione un juzgado</option>`;
         court.length < 1 ? selectCourt.value = 'No hay juzgados cargados!' : (

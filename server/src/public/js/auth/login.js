@@ -23,12 +23,16 @@ formLogin.addEventListener("submit", async (e) => {
       });
       return;  
     }
-    const { message } = await res.json();
+    const { message, permisos, rol,fullname } = await res.json();
+    
     Swal.fire({
       title: "Good job!",
       text: message,
       icon: "success"
     });
+    localStorage.setItem('permissions', JSON.stringify(permisos));
+    localStorage.setItem('rol', JSON.stringify(rol));
+    localStorage.setItem('fullname', JSON.stringify(fullname));
     setTimeout(() => {
       window.location.href = "/home";
     }, 2000);

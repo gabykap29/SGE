@@ -10,8 +10,8 @@
                 <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
             </div>
             <div class="ms-3">
-                <h6 class="mb-0">Jhon Doe</h6>
-                <span>Admin</span>
+                <h6 class="mb-0" id="fullname">Jhon Doe</h6>
+                <span id="rol">Admin</span>
             </div>
         </div>
         <div class="navbar-nav w-100">
@@ -19,19 +19,20 @@
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Expedientes</a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="/crearNuevo" class="dropdown-item">Cargar</a>
+                    <a href="/crearNuevo" class="dropdown-item" id="createRecord" >Cargar</a>
                     <a href="/expedientes/filtros" class="dropdown-item">Filtros</a>
                 </div>
             </div>
             <a href="/personas/buscar" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Personas</a>
 
-            <div class="nav-item dropdown">
+            <div class="nav-item dropdown" id="userManager">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Usuarios</a>
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="/usuarios/crear" class="dropdown-item">Crear</a>
                     <a href="/usuarios" class="dropdown-item">Ver Todos</a>
                 </div>
             </div>
+            <a href="/tools" class="nav-item nav-link"><i class="bi bi-gear-wide-connected"></i>Ajustes</a>
         </div>
     </nav>
 </div>

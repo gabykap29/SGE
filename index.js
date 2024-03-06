@@ -15,6 +15,8 @@ import routerUsuarios from "./server/src/routes/usuarios.routes.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import routerTools from "./server/src/routes/tools.routes.js";
+import routerOrigenExpediente from "./server/src/routes/origenExpediente.routes.js";
 const app = express();
 app.use(cors());
 const __filename = fileURLToPath(import.meta.url);
@@ -38,6 +40,8 @@ app.use(routerCircuns);
 app.use(routerJuzgados);
 app.use(routerPersonas);
 app.use(routerUsuarios);
+app.use(routerTools);
+app.use(routerOrigenExpediente);
 // server
 const port = process.env.PORT || 3000;
 const host = '0.0.0.0'; // Escucha en todas las interfaces de red

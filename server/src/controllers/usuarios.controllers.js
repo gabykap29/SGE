@@ -1,5 +1,7 @@
 import Usuario from "../models/usuarios/Usuarios.js";
 import bcrypt from "bcryptjs";
+import Permisos from "../models/usuarios/Permisos.js";
+import Rol from "../models/usuarios/Roles.js";
 const crtlUsuarios = {};
 
 crtlUsuarios.crearUsuario = async (req, res) => {
@@ -53,6 +55,7 @@ crtlUsuarios.crearUsuario = async (req, res) => {
 crtlUsuarios.editarUsuario = async (req, res) => {
   const { id } = req.params;
   const { username, password, rol_id, nombre, apellido } = req.body;
+  console.log(req.body);
   try {
     const usuario = await Usuario.findOne({
       where: {
@@ -245,4 +248,37 @@ crtlUsuarios.desbloquearUsuario = async (req, res) => {
       .json({ message: "Error interno del servidor al desbloquear el usuario!" });
   }
 };
+
+crtlUsuarios.getRoles = async(req,res)=>{
+  const id = req.params.id;
+  try {
+    const usuario = await Usuario.findOne({
+      where: {
+        id,
+      },
+      include:{
+        model: Rol,
+        attributes:['nombre'],
+        include:{
+          model:Permisos,
+          throw: "permisos_roles",
+          as: "permisos",
+        },
+      },
+    });
+    if (!usuario) {
+      return res.status(400).json({
+        message: "El usuario no existe!",
+      });
+    };
+
+    const permisos = usuario.rol.permisos.map((permiso) => permiso.nombre);
+    return res.status(200).json(permisos);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Error interno del servidor al obtener los roles!" });
+  };
+};
+
+
 export default crtlUsuarios;

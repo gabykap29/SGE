@@ -1,6 +1,6 @@
 import Rol from "../models/usuarios/Roles.js";
 
-const roles = ["Administrator", "User", "Supervisor", "Visualizer"]
+const roles = ["Administrator", "User", "Supervisor", "Visualizer","Personalizado"]
 
 export const cargarRoles = async () => {
     try {
