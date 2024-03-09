@@ -14,7 +14,7 @@ export const getJuzgados = async (req, res) => {
             }
         });
         if(!juzgados){
-            return res.status(404).json({message:'No hay juzgados registrados'});
+            return res.status(404).json({status:404, message:'No hay juzgados registrados'});
         };
         return res.status(200).json({data:juzgados});
     } catch (error) {
@@ -27,12 +27,12 @@ export const crearJuzgado = async (req, res) => {
     try {
         const juzgado = await Juzgado.create({nombre, circunscripcion_id});
         if(!juzgado){
-            return res.status(400).json({message:'Error al crear el juzgado'});
+            return res.status(400).json({status:400, message:'Error al crear el juzgado'});
         };
-        return res.status(201).json({message:'Juzgado creado con éxito!', data:juzgado});
+        return res.status(201).json({status:201,message:'Juzgado creado con éxito!', data:juzgado});
     } catch (error) {
         console.log(error);
-        return res.status(500).json({message:'Error interno del servidor al crear el juzgado'});
+        return res.status(500).json({status:500,message:'Error interno del servidor al crear el juzgado'});
     };
 };
 
@@ -46,11 +46,11 @@ export const eliminarJuzgado = async (req, res) => {
             cascade:true
         });
         if(!juzgado){
-            return res.status(400).json({message:'Error al eliminar el juzgado'});
+            return res.status(400).json({status:400, message:'Error al eliminar el juzgado'});
         };
-        return res.status(200).json({message:'Juzgado eliminado con éxito!'});
+        return res.status(200).json({status:200,message:'Juzgado eliminado con éxito!'});
     } catch (error) {
         console.log(error);
-        return res.status(500).json({message:'Error interno del servidor al eliminar el juzgado'});
+        return res.status(500).json({status:500,message:'Error interno del servidor al eliminar el juzgado'});
     }
 };

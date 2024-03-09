@@ -30,12 +30,12 @@ export const crearLocalidad = async (req, res) => {
     try {
         const localidad = await Localidad.create({nombre, departamento_id});
         if(!localidad){
-            return res.status(400).json({message:'Error al crear la localidad'});
+            return res.status(400).json({status:400,message:'Error al crear la localidad'});
         };
-        return res.status(201).json({message:'Localidad creada con éxito!', data:localidad});
+        return res.status(201).json({status:201, message:'Localidad creada con éxito!', data:localidad});
     } catch (error) {
         console.log(error);
-        return res.status(500).json({message:'Error interno del servidor al crear la localidad'});
+        return res.status(500).json({status:500,message:'Error interno del servidor al crear la localidad'});
     };
 };
 
@@ -51,7 +51,7 @@ export const eliminarLocalidad = async (req, res) => {
         if(!localidad){
             return res.status(400).json({message:'Error al eliminar la localidad'});
         };
-        return res.status(200).json({message:'Localidad eliminada con éxito!'});
+        return res.status(200).json({status:200,message:'Localidad eliminada con éxito!'});
     } catch (error) {
         console.log(error);
         return res.status(500).json({message:'Error interno del servidor al eliminar la localidad'});

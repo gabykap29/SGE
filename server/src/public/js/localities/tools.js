@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 const Localities = async (id) => {
     try {
         const res = await fetch(`/api/localidades/${id}`);
@@ -37,4 +39,53 @@ selectDepart.addEventListener('change', async () => {
     const table = document.querySelector('#localities');
     table.innerHTML = '';
     await renderLocalitiesTable(id);
+
+    
+    const btnDeleteLocality = document.querySelectorAll('.btnDeleteLocality');
+    if(btnDeleteLocality){
+        btnDeleteLocality.forEach(btn=>{
+            btn.addEventListener('click',async (e)=>{
+                Swal.fire({
+                    title: "Estas seguro?",
+                    text: "Esta acción no se puede deshacer!, se eliminará la localidad y todos los expedientes asociados a ella.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Si, eliminar!"
+                  }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        const id = btn.dataset.id;
+                        const res = await fetch(`/api/localidades/${id}`,{
+                            method: 'DELETE'
+                        });
+                        const data = await res.json();
+                        if(data.status === 200){
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Localidad eliminada',
+                                text: data.message,
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            await renderLocalitiesTable(selectDepart.value);
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error al eliminar localidad',
+                                text: data.message,
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        };
+                    };
+                });
+            });
+        });
+    };
+
+
 });
+
+
+

@@ -43,15 +43,34 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     const btnDeleteDepartment = document.querySelectorAll('.btnDeleteDepartment');
     btnDeleteDepartment.forEach(btn=>{
         btn.addEventListener('click',async ()=>{
-            const id = btn.parentElement.parentElement.firstElementChild.textContent;
-            const res = await fetch(`/api/departamentos/${id}`,{
-                method: 'DELETE'
-            });
-            if(res.ok){
-                btn.parentElement.parentElement.remove();
-            }else{
-                alertify.error('Error al eliminar el departamento');
-            };
+            Swal.fire({
+                title: "Estas seguro?",
+                text: "Esta acción no se puede deshacer!, se eliminará el departamento y todos los expedientes asociados a él.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, eliminar!"
+              }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const id = btn.dataset.id;
+                    const res = await fetch(`/api/departamentos/${id}`,{
+                        method: 'DELETE'
+                    });
+                    const data = await res.json();
+                    if(data.status === 200){
+                        btn.parentElement.parentElement.remove();
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error al eliminar departamento',
+                            text: data.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    };
+                }
+              });
         });
     });
 });

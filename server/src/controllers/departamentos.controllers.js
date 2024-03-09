@@ -19,11 +19,20 @@ export const getDepart = async (req,res)=>{
 export const crearDepart = async (req,res)=>{
     const {nombre} = req.body;
     try {
+        const verif = await Departamento.findOne({
+            where:{
+                nombre,
+            }
+        });
+        if(verif){
+            return res.status(400).json({status:400,message:'El departamento ya existe'});
+        };
+
         const departamento = await Departamento.create({nombre});
         if(!departamento){
-            return res.status(400).json({message:'Error al crear el departamento'});
+            return res.status(400).json({ status:400 ,message:'Error al crear el departamento'});
         };
-        return res.status(201).json({message:'Departamento creado con éxito!', data:departamento});
+        return res.status(201).json({status:201,message:'Departamento creado con éxito!', data:departamento});
     } catch (error) {
         console.log(error);
         return res.status(500).json({message:'Error interno del servidor al crear el departamento'});
@@ -40,9 +49,9 @@ export const eliminarDepart = async (req,res)=>{
             cascade:true
         });
         if(!departamento){
-            return res.status(400).json({message:'Error al eliminar el departamento'});
+            return res.status(400).json({status:400,message:'Error al eliminar el departamento'});
         };
-        return res.status(200).json({message:'Departamento eliminado con éxito!'});
+        return res.status(200).json({status:200,message:'Departamento eliminado con éxito!'});
     } catch (error) {
         console.log(error);
         return res.status(500).json({message:'Error interno del servidor al eliminar el departamento'});

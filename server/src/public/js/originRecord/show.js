@@ -35,6 +35,7 @@ const renderOriginRecord = async()=>{
 
     if(document.getElementById('originRecords')){
         const table = document.getElementById('originRecords');
+        table.innerHTML = '';
         origins.forEach((origin,index)=>{
             table.innerHTML += `
             <tr>
@@ -45,7 +46,7 @@ const renderOriginRecord = async()=>{
                     ${origin.nombre}
                 </td>
                 <td class="text-center">
-                    <a href="/api/origenesExpediente/eliminar/${origin.id}" class="btn btn-danger btnDeleteOrigin btn-sm"> <i class="bi bi-x-octagon-fill"></i></a>  
+                    <button class="btn btn-danger btnDeleteOrigin btn-sm" data-id=${origin.id}> <i class="bi bi-x-octagon-fill"></i></button>  
                 </td>
             </tr>
             `
@@ -55,4 +56,45 @@ const renderOriginRecord = async()=>{
 
 document.addEventListener('DOMContentLoaded', async(e)=>{
     await renderOriginRecord();
+    const btnDeleteOrigin = document.querySelectorAll('.btnDeleteOrigin');
+    btnDeleteOrigin.forEach(btn=>{
+        btn.addEventListener('click',async(e)=>{
+            e.preventDefault();
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+              }).then(async(result) => {
+                if (result.isConfirmed) {
+                    const res = await fetch(`/api/origenesExpediente/${btn.dataset.id}`,{
+                        method: 'DELETE'
+                    });
+                    const data = await res.json();
+                    if(data.status === 200){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Origen de expediente eliminado',
+                            text: data.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        await renderOriginRecord();
+                    }else if(data.status === 404){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error al eliminar origen de expediente',
+                            text: data.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    };
+                }
+              });
+
+        });
+    });
 });

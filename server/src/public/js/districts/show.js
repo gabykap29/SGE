@@ -31,7 +31,7 @@ const renderDistricts = async () => {
                 <td>${district.id}</td>
                 <td>${district.nombre}</td>
                 <td class="text-center">
-                    <button class="btn btn-danger btnDeleteDistrict btn-sm" data-id="${districs.id}"><i class="bi bi-x-octagon-fill"></i></button>
+                    <button class="btn btn-danger btnDeleteDistrict btn-sm" data-id="${district.id}"><i class="bi bi-x-octagon-fill"></i></button>
                 </td>
             `;
         });
@@ -40,4 +40,46 @@ const renderDistricts = async () => {
 
 document.addEventListener('DOMContentLoaded',async()=>{
     await renderDistricts();
+    const btnDeleteDistrict = document.querySelectorAll('.btnDeleteDistrict');
+    if(btnDeleteDistrict){
+        btnDeleteDistrict.forEach(btn=>{
+            btn.addEventListener('click',async (e)=>{
+                Swal.fire({
+                    title: "Estas seguro?",
+                    text: "Esta acción no se puede deshacer!, se eliminará el distrito y todos los expedientes asociados a él.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Si, eliminar!"
+                  }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        const id = btn.dataset.id;
+                        const res = await fetch(`/api/circunscripciones/${id}`,{
+                            method: 'DELETE'
+                        });
+                        const data = await res.json();
+                        if(data.status === 200){
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Distrito eliminado',
+                                text: data.message,
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            await renderDistricts();
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error al eliminar distrito',
+                                text: data.message,
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        };
+                    };
+                  });
+            });
+        });
+    };
 });

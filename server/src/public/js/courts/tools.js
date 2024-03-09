@@ -38,4 +38,91 @@ const renderCourtTable = async (id) => {
 selectDistrict.addEventListener('change', async () => {
     const id = selectDistrict.value;
     await renderCourtTable(id);
+    const btnDeleteCourt = document.querySelectorAll('.btnDeleteCourt');
+    btnDeleteCourt.forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const id = btn.getAttribute('data-id');
+            const res = await fetch(`/api/juzgados/${id}`,{
+                method: 'DELETE'
+            });
+            const data = await res.json();
+            if(data.status === 200){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Juzgado eliminado',
+                    text: data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                await renderCourtTable(selectDistrict.value);
+            }else if(data.status === 404){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al eliminar juzgado',
+                    text: data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error interno del servidor',
+                    text: data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        });
+    });
+});
+
+
+const formOrigin = document.getElementById('formOrigin');
+formOrigin.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const origin = document.getElementById('inputOrigin').value;
+    if(origin === ''){
+        Swal.fire({
+            icon: 'error',
+            title: 'El campo no puede estar vacío',
+            text: 'Por favor, ingrese un nombre para el origen de expediente',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        return;
+    };
+    const res = await fetch('/api/origenesExpediente',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({nombre:origin})
+    });
+    const data = await res.json();
+    if(data.status === 201){
+        Swal.fire({
+            icon: 'success',
+            title: 'Origen de expediente creado',
+            text: data.message,
+            showConfirmButton: false,
+            timer: 1500
+        });
+        await renderOriginRecord();
+    }else if(data.status === 400){
+        Swal.fire({
+            icon: 'error',
+            title: 'Error al crear origen de expediente',
+            text: data.message,
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Error interno del servidor',
+            text: data.message,
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
 });
