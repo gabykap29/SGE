@@ -1,0 +1,74 @@
+<%- include('../layouts/head.ejs'); %>
+<!--Spinner start-->
+<%- include('../layouts/spinner.ejs'); %>
+<!--Spinner end-->
+
+<!-- Sidebard start-->
+<%- include('../partials/sidebard.ejs'); %>
+<!-- Sidebard end-->
+
+<!--navbar start-->
+<%- include('../partials/navbar.ejs'); %>
+<!--navbar end-->
+
+<!--Conten start-->
+
+<div class="container-fluid pt-4 px-4 card" style="font-size: small;">
+    <div class="card mb-2" style="background-color: rgb(243, 244, 253);">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Registro de peticiones hechas al sistema</h5>
+            </div>
+            <div class="accordion m-3" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Filtrar por fecha
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <form action="#" id="formLogsDate">
+                            <label for="validationTooltip04"
+                                class="form-label">fecha</label>
+                            <input type="date" class="form-control" id="inputDate">
+                            <button type="submit"
+                                class="btn btn-show mt-2">Buscar</button>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>IP</th>
+                                <th>URL</th>
+                                <th>Método</th>
+                                <th>Estado</th>
+                                <th>Sistema Operativo</th>
+                                <th>Navegador</th>
+                                <th>usuario</th>
+                            </tr>
+                        </thead>
+                        <tbody id="registros">
+
+                        </tbody>
+                    </table>
+                </div>
+    </div>
+
+</div>
+
+<script
+    src="/js/tools/logs.js"
+></script>
+<!--Content end-->
+
+<!--footer and end-->
+<%- include('../partials/footerAndEnd.ejs'); %>
+
+<%- include('../layouts/bottom.ejs'); %>

@@ -13,18 +13,77 @@ import routerJuzgados from "./server/src/routes/juzgados.routes.js";
 import routerPersonas from "./server/src/routes/personas.routes.js";
 import routerUsuarios from "./server/src/routes/usuarios.routes.js";
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import routerTools from "./server/src/routes/tools.routes.js";
 import routerOrigenExpediente from "./server/src/routes/origenExpediente.routes.js";
+import routerLogs from "./server/src/routes/logs.routes.js";
+import jwt from 'jsonwebtoken';
+
 const app = express();
 app.use(cors());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// Directorio donde se guardarán los archivos de registro
+const logsDir = path.join(__dirname, 'server', 'src', 'logs');
+
+// Verificar si la carpeta logs existe, si no, crearla
+if (!fs.existsSync(logsDir)) {
+  fs.mkdirSync(logsDir);
+};
+
+const logFileName =  `log-${getCurrentDate()}.log`;
+const logFilePath =  path.join(__dirname, 'server', 'src', 'logs', logFileName);
+const accessLogStream = fs.createWriteStream(logFilePath, { flags: 'a' });
+
+
+function obtenerNombreDeUsuario(req) {
+  // Verificar si existen cookies en la solicitud y si hay un token de autenticación
+  if (req.cookies && req.cookies.userSession) {
+    try {
+
+      const username = req.cookies.username;
+      return username;
+    } catch (error) {
+      // Manejar cualquier error de decodificación de token (por ejemplo, token inválido o expirado)
+      console.error('Error al decodificar el token:', error.message);
+      return null; // Devolver null si hay un error
+    }
+  } else {
+    // Si no se encuentra el token en las cookies, retornar null
+    return null;
+  }
+}
+
+function morganMiddleware(tokens, req, res) {
+  const currentDate = getCurrentDate(); // Obtener la fecha actual
+  const logFileName = `log-${currentDate}.log`; // Nombre de archivo de log actualizado
+  const logFilePath = path.join(__dirname, 'server', 'src', 'logs', logFileName);
+
+  // Verificar si el archivo de log ha cambiado, si es así, cambiar el stream de escritura
+  if (accessLogStream.path !== logFilePath) {
+    accessLogStream.end(); // Cerrar el stream anterior
+    accessLogStream = fs.createWriteStream(logFilePath, { flags: 'a' }); // Crear un nuevo stream
+  }
+
+  return [
+    tokens.method(req, res),
+    tokens.url(req, res),
+    tokens.status(req, res),
+    tokens.res(req, res, 'content-length'), '-',
+    tokens['response-time'](req, res), 'ms',
+    obtenerNombreDeUsuario(req) || '-',
+    `"${req.headers['user-agent']}"`
+  ].join(' ');
+}
+
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan("dev"));
+app.use(morgan(morganMiddleware, { stream: accessLogStream }));
 
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname,'server', 'src', 'public')));
@@ -42,6 +101,20 @@ app.use(routerPersonas);
 app.use(routerUsuarios);
 app.use(routerTools);
 app.use(routerOrigenExpediente);
+app.use(routerLogs);
+app.use((req, res) => {
+  res.status(404).json({ message: "Not found" });
+});
+
+// Función para obtener la fecha actual en formato 'YYYY-MM-DD'
+function getCurrentDate() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 // server
 const port = process.env.PORT || 3000;
 const host = '0.0.0.0'; // Escucha en todas las interfaces de red
