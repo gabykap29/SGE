@@ -121,6 +121,7 @@ await Localidad.sync({ force: false });
 await Circunscripcion.sync({ force: false });
 await Juzgado.sync({ force: false });
 await TipoExpediente.sync({ force: false });
+await OrigenExpediente.sync({ force: false });
 await Expediente.sync({ force: false });
 await Rol.sync({ force: false });
 await Permisos.sync({ force: false });
@@ -129,7 +130,7 @@ await Usuario.sync({ force: false });
 await Persona.sync({ force: false });
 await ExpedientePersona.sync({ force: false });
 await Files.sync({ force: false });
-await OrigenExpediente.sync({ force: false });
+
 
 export const comprobacionesDB = async () => {
   const countRoles = await Rol.count();

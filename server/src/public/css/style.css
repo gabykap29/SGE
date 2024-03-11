@@ -353,3 +353,9 @@ a{
     max-height: 200px;
     overflow-y: auto;
 }
+
+#tableLogs{
+    overflow:auto;
+    max-height: 400px;
+    overflow-y: auto;
+}

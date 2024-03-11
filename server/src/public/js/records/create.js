@@ -12,7 +12,7 @@ formCreateRecord.addEventListener('submit', async (e) => {
     const order = document.querySelector('#order').value;
     const resume = document.querySelector('#resume').value;
     const secretary = document.querySelector('#secretary').value;
-    const origin = parseInt(document.querySelector('#origin').value);
+    const origin = parseInt(document.querySelector('#originRecord').value);
     const res = await fetch('/api/expedientes/nuevo', {
         method: 'POST',
         headers: {

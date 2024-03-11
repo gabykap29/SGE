@@ -17,58 +17,95 @@ const getLogs = async (fecha) => {
     }
 };
 
-function extractUser(userAgent) {
-    var matches = userAgent.match(/\badmin\b|\buser\b/i);
-    return matches ? matches[0] : "Desconocido";
-}
 
-function renderLogData(response) {
-    if (response.status === 200) {
-        var logData = response.data.trim().split('\n');
-        var tableBody = document.getElementById('registros');
-    
-        logData.forEach(function(log) {
-            var logDetails = log.split(' ');
-            var timestamp = logDetails.slice(0, 3).join(' ');
-            var ip = logDetails[logDetails.length - 2];
-            var method = logDetails[1];
-            var request = logDetails[2];
-            var status = logDetails[3];
-            var userAgent = logDetails.slice(4).join(' ').replace(/"/g, '');
-    
-            var os;
-            if (userAgent.includes("Windows")) {
-                os = "Windows";
-            } else if (userAgent.includes("Macintosh")) {
-                os = "Macintosh";
-            } else if (userAgent.includes("Linux")) {
-                os = "Linux";
-            } else {
-                os = "Otro";
-            }
-    
-            var user = extractUser(userAgent);
-    
-            var row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${timestamp}</td>
-                <td>${ip}</td>
-                <td>${request}</td>
-                <td>${method}</td>
-                <td>${status}</td>
-                <td>${os}</td>
-                <td>${user}</td>
-            `;
-            tableBody.appendChild(row);
-        });
-    } else {
+const renderLogData = (data) => {
+    const registros = document.getElementById('registros');
+    registros.innerHTML = '';
+    if (data.status === 404) {
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: response.message || 'Error al obtener los registros de logs',
+            text: '¡No se encontró el archivo de logs para la fecha indicada!',
         });
+        return;
     }
-}
+    if (data.status === 500) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '¡Error interno del servidor al obtener el archivo de logs!',
+        });
+        return;
+    }
+    if (data.data.length === 0) {
+        Swal.fire({
+            icon: 'info',
+            title: 'Info',
+            text: '¡No hay registros para la fecha indicada!',
+        });
+        return;
+    }
+
+    data.data.forEach((registro, index) => {
+        const { timestamp, message } = registro;
+
+        if (typeof message === 'string') {
+            // Si el mensaje es una cadena, probablemente sea un registro de solicitud sin formato
+            const parts = message.split(' '); // Dividir la cadena por espacios
+            const url = parts[0]; // El método HTTP debería estar en la primera parte
+            const method = parts[1]; // La URL debería estar en la segunda parte
+            const status = parts[2]; // El código de estado debería estar en la tercera parte
+            const user = registro.meta.req.headers.cookie || 'Parte de Petición';
+            const ip = registro.meta.req.headers.host || 'sin datos';
+            const userAgent = registro.meta.req.headers['user-agent'] || 'sin datos';
+            const os =  'sin datos';
+            const cookieParts = user.split(';');
+            const username = cookieParts[0].split('=')[1];
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+            <th scope="row">${index + 1}</th>
+            <td>${dayjs(timestamp).format('DD-MM-YYYY HH:mm')}</td>
+            <td>${ip || 'Sin datos'}</td>
+            <td>${method || 'GET'}</td>
+            <td>${url  || 'Sin datos'}</td>
+
+            <td>${status || 200}</td>
+            <td>${os || 'sin datos'}</td>
+            <td>${userAgent || 'sin datos'}</td>
+            <td>${username || 'Parte de Petición'}</td> 
+            `;
+            registros.appendChild(tr);
+        } else {
+            // Si el mensaje es un objeto, probablemente sea un registro de solicitud con formato JSON
+            const { ip, method, url, status, userAgent, os } = message;
+
+            let username;
+            // Si existe un usuario en el mensaje, extraerlo
+            if(!registro.meta) {
+                 username =  'Parte de Petición';
+            }else{
+                const user = registro.meta.req.headers.cookie;
+                const cookieParts = user.split(';');
+                 username = cookieParts[0].split('=')[1];
+            }
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <th scope="row">${index + 1}</th>
+                <td>${dayjs(timestamp).format('DD-MM-YYYY HH:mm')}</td>
+                <td>${ip}</td>
+                <td>${url}</td>
+                <td>${method}</td>
+                <td>${status}</td>
+                <td>${os}</td>
+                <td>${userAgent}</td>
+                <td>${username}</td> 
+            `;
+            registros.appendChild(tr);
+        }
+    });
+};
+
+
 
 formLogsDate.addEventListener('submit', async (e) => {
     e.preventDefault();

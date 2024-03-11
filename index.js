@@ -1,5 +1,4 @@
 import express from "express";
-import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import routerAuth from "./server/src/routes/auth.routes.js";
@@ -12,19 +11,32 @@ import routerCircuns from "./server/src/routes/circunscripcion.routes.js";
 import routerJuzgados from "./server/src/routes/juzgados.routes.js";
 import routerPersonas from "./server/src/routes/personas.routes.js";
 import routerUsuarios from "./server/src/routes/usuarios.routes.js";
+import routerTools from "./server/src/routes/tools.routes.js";
+import routerOrigenExpediente from "./server/src/routes/origenExpediente.routes.js";
+import routerLogs from "./server/src/routes/logs.routes.js";
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import routerTools from "./server/src/routes/tools.routes.js";
-import routerOrigenExpediente from "./server/src/routes/origenExpediente.routes.js";
-import routerLogs from "./server/src/routes/logs.routes.js";
 import jwt from 'jsonwebtoken';
-
-const app = express();
-app.use(cors());
+import winston from 'winston';
+import expressWinston from 'express-winston';
+import useragent from 'express-useragent';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+const app = express();
+
+app.use(cors());
+app.use(useragent.express()); 
+// Middleware para registrar solicitudes HTTP
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname,'server', 'src', 'public')));
+app.set('views', path.join(__dirname,'server', 'src', 'views'));
 
 // Directorio donde se guardarán los archivos de registro
 const logsDir = path.join(__dirname, 'server', 'src', 'logs');
@@ -36,58 +48,70 @@ if (!fs.existsSync(logsDir)) {
 
 const logFileName =  `log-${getCurrentDate()}.log`;
 const logFilePath =  path.join(__dirname, 'server', 'src', 'logs', logFileName);
-const accessLogStream = fs.createWriteStream(logFilePath, { flags: 'a' });
 
+// Crear el objeto logger aquí
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({
+      filename: logFilePath,
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json()
+      )
+    })
+  ]
+});
 
-function obtenerNombreDeUsuario(req) {
-  // Verificar si existen cookies en la solicitud y si hay un token de autenticación
-  if (req.cookies && req.cookies.userSession) {
-    try {
-
-      const username = req.cookies.username;
-      return username;
-    } catch (error) {
-      // Manejar cualquier error de decodificación de token (por ejemplo, token inválido o expirado)
-      console.error('Error al decodificar el token:', error.message);
-      return null; // Devolver null si hay un error
-    }
-  } else {
-    // Si no se encuentra el token en las cookies, retornar null
-    return null;
-  }
-}
-
-function morganMiddleware(tokens, req, res) {
-  const currentDate = getCurrentDate(); // Obtener la fecha actual
-  const logFileName = `log-${currentDate}.log`; // Nombre de archivo de log actualizado
-  const logFilePath = path.join(__dirname, 'server', 'src', 'logs', logFileName);
-
-  // Verificar si el archivo de log ha cambiado, si es así, cambiar el stream de escritura
-  if (accessLogStream.path !== logFilePath) {
-    accessLogStream.end(); // Cerrar el stream anterior
-    accessLogStream = fs.createWriteStream(logFilePath, { flags: 'a' }); // Crear un nuevo stream
+// Middleware para registrar solicitudes HTTP
+app.use((req, res, next) => {
+  const staticExtensions = ['.css', '.js', '.png', '.jpg', '.jpeg', '.gif']; 
+  const isStaticRequest = staticExtensions.some(ext => req.url.endsWith(ext));
+  
+  // Verificar si la solicitud es para un archivo estático
+  if (isStaticRequest) {
+    return next('route');
   }
 
-  return [
-    tokens.method(req, res),
-    tokens.url(req, res),
-    tokens.status(req, res),
-    tokens.res(req, res, 'content-length'), '-',
-    tokens['response-time'](req, res), 'ms',
-    obtenerNombreDeUsuario(req) || '-',
-    `"${req.headers['user-agent']}"`
-  ].join(' ');
-}
+  // Registrar la solicitud si no es para un archivo estático
+  logger.info({
+    timestamp: new Date(),
+    method: req.method,
+    url: req.url,
+    ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+    status: res.statusCode,
+    userAgent: req.useragent.source,
+    os: req.useragent.os
+  });
+
+  next();
+});
+
+// Middleware de registro de solicitudes HTTP con Express Winston
+app.use(expressWinston.logger({
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: logFilePath })
+  ],
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
+  meta: true,
+  msg: "HTTP {{req.method}} {{req.url}}",
+  expressFormat: true,
+  colorize: false,
+  ignoreRoute: function (req, res) { return false; }
+}));
 
 
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(morgan(morganMiddleware, { stream: accessLogStream }));
 
-app.set('view engine', 'ejs');
-app.use(express.static(path.join(__dirname,'server', 'src', 'public')));
-app.set('views', path.join(__dirname,'server', 'src', 'views'));
 
 app.use(cookieParser())
 // routes
@@ -102,6 +126,10 @@ app.use(routerUsuarios);
 app.use(routerTools);
 app.use(routerOrigenExpediente);
 app.use(routerLogs);
+
+
+
+
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
 });
