@@ -1,5 +1,3 @@
-import Swal from "sweetalert2";
-
 const Localities = async (id) => {
     try {
         const res = await fetch(`/api/localidades/${id}`);

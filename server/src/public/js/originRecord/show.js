@@ -26,6 +26,7 @@ const renderOriginRecord = async()=>{
           return ;
     };
     if(document.getElementById('originRecord')){
+    originRecord.innerHTML = '';
     origins.forEach(origin=>{
         originRecord.innerHTML+=`
         <option value=${origin.id}>
