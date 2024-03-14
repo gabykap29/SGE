@@ -13,7 +13,16 @@
     z-index: 99;
 }
 
-
+body{
+    background-color: #E8EFF8;
+}
+.content{
+    background-color: #E8EFF8;
+}
+#table-home{
+    height: 300px;
+    overflow-y: scroll;
+}
 /*** Spinner ***/
 #spinner {
     opacity: 0;
