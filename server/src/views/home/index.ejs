@@ -11,119 +11,113 @@
 <%- include('../partials/navbar.ejs'); %>
 <!--navbar end-->
 
-<div class="container-fluid pt-4 px-4 card" style="height: 80%;">
-    <div class="card shadow-sm" style="background-color: rgb(243, 244, 253);">
-        <div class="card-header" style="background-color: rgb(232, 239, 248);">
-            <img src="/img/estadisticas.png" width="33" alt>
-            <strong> Dashboard </strong>
-        </div>
-        <div class="row m-3  ">
-            <div class="col-sm-3 ">
-                <div class="card shadow-sm resultados">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-3">
-                                <img class="mt-1" src="/img/total.png"
-                                    width="50" alt>
-                            </div>
-                            <div class="col-8">
-                                <h5 class="text-center mt-1">Total</h5>
-                                <h5 class="text-center" id="total">0</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class=" col-sm-3 ">
-                <div class="card shadow-sm resultados">
-                    <div class="card-body ">
-                        <div class="row">
-                            <div class="col-3">
-                                <img class="mt-1" src="/img/elevados.png"
-                                    width="50" alt>
-                            </div>
-                            <div class="col-8">
-                                <h5 class="text-center mt-1">Elevados</h5>
-                                <h5 class="text-center" id="elevados">0</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class=" col-sm-3 ">
-                <div class="card shadow-sm resultados">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-3">
-                                <img class="mt-1" src="/img/enProceso.png"
-                                    width="50" alt>
-                            </div>
-                            <div class="col-8">
-                                <h5 class="text-center mt-1">En curso</h5>
-                                <h5 class="text-center" id="enCurso">0</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class=" col-sm-3 ">
-                <div class="card shadow-sm resultados">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-3">
-                                <img class="mt-1" src="/img/vencido.png"
-                                    width="50" alt>
-                            </div>
-                            <div class="col-8">
-                                <h5 class="text-center mt-1">Vencidos</h5>
-                                <h5 class="text-center" id="vencidos">0</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="container-fluid pt-4 px-4 card" style="height: 80%">
+  <div class="card shadow-sm" style="background-color: rgb(243, 244, 253)">
+    <div class="card-header" style="background-color: rgb(232, 239, 248)">
+      <img src="/img/estadisticas.png" width="33" alt />
+      <strong> Dashboard </strong>
     </div>
-    <div class="card mt-3" style="background-color: rgb(243, 244, 253);">
-        <div class="card-header" style="background-color: rgb(232, 239, 248);">
-            <img src="/img/cargando.png" width="33"
-                alt="imagen de expedientes cargados">
-            <strong>Ultimos expedientes cargados</strong>
-        </div>
-        <div class="card-body" id="table-home">
-            <div class="col-sm-12 ">
-                <div class=" rounded table-responsive" >
-                    <table class="table table-striped table-bordered table-hover small">
-                        <thead>
-                            <tr>
-                                <th scope="col">orden</th>
-                                <th scope="col">Departamento</th>
-                                <th scope="col">Localidad</th>
-                                <th scope="col">Tipo</th>
-                                <th scope="col">Circunscripcion</th>
-                                <th scope="col">Juzgado</th>
-                                <th scope="col">Inicio</th>
-                                <th scope="col">Origen</th>
-                                <th scope="col">Estado</th>
-                                <th scope="col">Secretario</th>
-                                <th scope="col">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="records">
-                        </tbody>
-                    </table>
-                </div>
+    <div class="row m-3">
+      <div class="col-sm-3">
+        <div class="card shadow-sm resultados">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-3">
+                <img class="mt-1" src="/img/total.png" width="50" alt />
+              </div>
+              <div class="col-8">
+                <h5 class="text-center mt-1">Total</h5>
+                <h5 class="text-center" id="total">0</h5>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="card shadow-sm resultados">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-3">
+                <img class="mt-1" src="/img/elevados.png" width="50" alt />
+              </div>
+              <div class="col-8">
+                <h5 class="text-center mt-1">Elevados</h5>
+                <h5 class="text-center" id="elevados">0</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="card shadow-sm resultados">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-3">
+                <img class="mt-1" src="/img/enProceso.png" width="50" alt />
+              </div>
+              <div class="col-8">
+                <h5 class="text-center mt-1">En curso</h5>
+                <h5 class="text-center" id="enCurso">0</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="card shadow-sm resultados">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-3">
+                <img class="mt-1" src="/img/vencido.png" width="50" alt />
+              </div>
+              <div class="col-8">
+                <h5 class="text-center mt-1">Vencidos</h5>
+                <h5 class="text-center" id="vencidos">0</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
+  </div>
+  <div class="card mt-3 mb-2" style="background-color: rgb(243, 244, 253)">
+    <div class="card-header" style="background-color: rgb(232, 239, 248)">
+      <img
+        src="/img/cargando.png"
+        width="33"
+        alt="imagen de expedientes cargados"
+      />
+      <strong>Ultimos expedientes cargados</strong>
+    </div>
+    <div class="card-body" id="table-home">
+      <div class="col-sm-12">
+        <div class="rounded table-responsive">
+          <table class="table table-striped table-bordered table-hover small">
+            <thead>
+              <tr>
+                <th scope="col">orden</th>
+                <th scope="col">Departamento</th>
+                <th scope="col">Localidad</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Circunscripcion</th>
+                <th scope="col">Juzgado</th>
+                <th scope="col">Inicio</th>
+                <th scope="col">Origen</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Secretario</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="records"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<script
-    src="/js/records/show.js"></script>
-<script
-    src="/js/records/dashboard.js"></script>
+<script src="/js/records/show.js"></script>
+<script src="/js/records/dashboard.js"></script>
 <!--footer and end-->
-<%- include('../partials/footerAndEnd.ejs'); %>
-
-<%- include('../layouts/bottom.ejs'); %>
+<%- include('../partials/footerAndEnd.ejs'); %> <%-
+include('../layouts/bottom.ejs'); %>

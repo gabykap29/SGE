@@ -23,6 +23,16 @@ body{
     height: 300px;
     overflow-y: scroll;
 }
+.container-filters{
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.content-tools{
+    height: 73vh;
+    overflow-y: scroll;
+
+}
 /*** Spinner ***/
 #spinner {
     opacity: 0;

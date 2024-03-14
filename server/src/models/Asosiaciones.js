@@ -242,9 +242,6 @@ if(countOrigenExpediente === 0){
 
 };
 
-
-
-
 export default {
   Circunscripcion,
   Departamento,
