@@ -93,7 +93,7 @@ app.use((req, res, next) => {
 });
 
 // Middleware de registro de solicitudes HTTP con Express Winston
-app.use(expressWinston.logger({
+app.use(expressWinston.logger({ 
   transports: [
     new winston.transports.Console(),
     new winston.transports.File({ filename: logFilePath })
