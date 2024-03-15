@@ -27,9 +27,13 @@ formDepartment.addEventListener('submit',async (e) => {
             icon: 'success',
             title: 'Departamento creado',
             text: data.message,
-            showConfirmButton: false,
+            showConfirmButton: true,
             timer: 1500
         });
+    await renderDepartments();
+    setTimeout(()=>{
+        window.location.href = '/tools';
+    },1500)
     }else{
         Swal.fire({
             icon: 'error',
@@ -72,10 +76,13 @@ formLocality.addEventListener('submit',async (e) => {
             icon: 'success',
             title: 'Localidad creada',
             text: data.message,
-            showConfirmButton: false,
+            showConfirmButton: true,
             timer: 1500
         });
         await renderLocalitiesTable(department);
+        setTimeout(()=>{
+            window.location.href = '/tools';
+        },1500)
     }else{
         Swal.fire({
             icon: 'error',
@@ -115,10 +122,13 @@ formDistrict.addEventListener('submit',async (e) => {
             icon: 'success',
             title: 'Circunscripción creada',
             text: data.message,
-            showConfirmButton: false,
+            showConfirmButton: true,
             timer: 1500
         });
         await renderDistricts();
+        setTimeout(()=>{
+            window.location.href = '/tools';
+        },1500)
     }else{
         Swal.fire({
             icon: 'error',
@@ -159,16 +169,19 @@ formCourt.addEventListener('submit',async (e) => {
             icon: 'success',
             title: 'Juzgado creado',
             text: data.message,
-            showConfirmButton: false,
+            showConfirmButton: true,
             timer: 1500
         });
         await renderCourtsTable(district);
+        setTimeout(()=>{
+            window.location.href = '/tools';
+        },1500)
     }else if(data.status === 400){
         Swal.fire({
             icon: 'error',
             title: 'Error al crear juzgado',
             text: data.message,
-            showConfirmButton: false,
+            showConfirmButton: true,
             timer: 1500
         });
     }else{

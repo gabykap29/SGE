@@ -128,3 +128,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     const fullname = JSON.parse(localStorage.getItem('fullname'));    
     imgPerfil.src = `https://ui-avatars.com/api/?name=${fullname}&background=random`
     imgProfileNavbar.src = `https://ui-avatars.com/api/?name=${fullname}&background=random`
+
