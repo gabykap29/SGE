@@ -6,7 +6,7 @@
         </a>
         <div class="d-flex align-items-center ms-4 mb-4">
             <div class="position-relative">
-                <img class="rounded-circle" src="/img/hombre.png" alt="" style="width: 40px; height: 40px;">
+                <img class="rounded-circle" id="imgPerfil" src="/img/hombre.png" alt="" style="width: 40px; height: 40px;">
                 <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
             </div>
             <div class="ms-3">
@@ -18,18 +18,18 @@
             <a href="/home" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Expedientes</a>
-                <div class="dropdown-menu bg-transparent border-0">
-                    <a href="/crearNuevo" class="dropdown-item" id="createRecord" >Cargar</a>
-                    <a href="/expedientes/filtros" class="dropdown-item">Filtros</a>
+                <div class="dropdown-menu bg-transparent border-0 mx-4">
+                    <a href="/crearNuevo" class="dropdown-item" id="createRecord" ><img class="imgIcons" src="/img/agregar.png" alt="icono agregar" width="30"> Cargar</a>
+                    <a href="/expedientes/filtros" class="dropdown-item"> <img class="imgIcons" src="/img/filtros.png" alt="icono de filtros" width="25"> Filtros</a>
                 </div>
             </div>
             <a href="/personas/buscar" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Personas</a>
 
             <div class="nav-item dropdown" id="userManager">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Usuarios</a>
-                <div class="dropdown-menu bg-transparent border-0">
-                    <a href="/usuarios/crear" class="dropdown-item">Crear</a>
-                    <a href="/usuarios" class="dropdown-item">Ver Todos</a>
+                <div class="dropdown-menu bg-transparent mx-4 border-0">
+                    <a href="/usuarios/crear" class="dropdown-item"><img class="imgIcons" src="/img/nueva-cuenta.png" alt="icono crear usuario" width="25">Crear</a>
+                    <a href="/usuarios" class="dropdown-item"><img class="imgIcons" src="/img/usuario.png" alt="icono usuarios" width="25">Ver Todos</a>
                 </div>
             </div>
             <a href="/tools" class="nav-item nav-link" id="tools"><i class="bi bi-gear-wide-connected me-2"></i>Ajustes</a>

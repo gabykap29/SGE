@@ -378,3 +378,7 @@ a{
     max-height: 400px;
     overflow-y: auto;
 }
+
+.imgIcons{
+    margin-right: 20px;
+}

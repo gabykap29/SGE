@@ -103,13 +103,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         userManager.remove();
     };
 
-    if(!permissionsRecordsCreate){
+    if(permissionsRecordsCreate === false){
         createRecord.remove();
     };
 
-    if(permissionsRecordsEdit === false){
-        createRecord.remove();
-    };
 
     if(!permissionsRecordsEdit){
         editRecord.forEach((record)=>{
@@ -125,3 +122,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         settings.remove();
     }
     });
+
+    const imgPerfil = document.getElementById('imgPerfil');
+    const imgProfileNavbar = document.getElementById('imgProfileNavbar');
+    const fullname = JSON.parse(localStorage.getItem('fullname'));    
+    imgPerfil.src = `https://ui-avatars.com/api/?name=${fullname}&background=random`
+    imgProfileNavbar.src = `https://ui-avatars.com/api/?name=${fullname}&background=random`

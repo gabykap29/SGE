@@ -15,6 +15,7 @@ const getOriginRecord = async ()=>{
 };
 
 const renderOriginRecord = async()=>{
+    originRecord.innerHTML = '';
     const origins = await getOriginRecord();
     if(origins.length < 1){
         Swal.fire({
@@ -53,16 +54,11 @@ const renderOriginRecord = async()=>{
             </tr>
             `
         });
-    }else{
-        origins.forEach((origin,index)=>{
-            originRecord.innerHTML += `
-            <option value=${origin.id}> ${origin.nombre} </option>
-            `
-        });
     }
 };
 
 document.addEventListener('DOMContentLoaded', async(e)=>{
+    e.preventDefault();
     await renderOriginRecord();
     const btnDeleteOrigin = document.querySelectorAll('.btnDeleteOrigin');
     btnDeleteOrigin.forEach(btn=>{
