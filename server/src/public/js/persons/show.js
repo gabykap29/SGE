@@ -21,18 +21,20 @@ const getPerson = async ()=>{
         return data;
     } catch (error) {
         console.log(error);
-        alertify.error('Error al buscar persona, codigo de error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error interno del servidor al obtener las personas!, codigo de error: '+error,
+        });
     };
 };
 
 const renderPerson = async()=>{
     try {
         const personsResponse = await getPerson();
-        console.log(personsResponse);
         const persons = personsResponse.data; // Accediendo a los datos dentro de la respuesta
         
         if (persons.length === 0) {
-            alertify.error('La persona ingresada no se encuentra en la base de datos!');
             return [];
         }
         
@@ -59,7 +61,11 @@ const renderPerson = async()=>{
         }
     } catch (error) {
         console.log(error);
-        alertify.error('Error al renderizar las personas, codigo de error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error interno del servidor al obtener las personas!, codigo de error: La persona no existe en la base de datos',
+        });
     };
 };
 

@@ -28,6 +28,8 @@ const permisos = [
   "Ver Persona",
   "Bloquear Usuario",
   "Desbloquear Usuario",
+  "Ver Logs",
+  "Ver Ajustes",
 ];
 
 export const cargarPermisos = async () => {

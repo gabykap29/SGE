@@ -26,10 +26,10 @@ const renderUsers = async()=>{
             case 1:
                 rol = 'Administrador';
                 break;
-            case 2:
+            case 3:
                 rol = 'Supervisor';
                 break;
-                case 3:
+                case 2:
                 rol = 'Usuario';
                 break;
             default:

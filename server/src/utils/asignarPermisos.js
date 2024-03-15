@@ -28,6 +28,8 @@ const rolesPermisos = [
   { rol_id: 1, permiso_id: 25 },
   { rol_id: 1, permiso_id: 26 },
   { rol_id: 1, permiso_id: 27 },
+  { rol_id: 1, permiso_id: 28},
+  { rol_id: 1, permiso_id: 29},
   //Supervisor
   { rol_id: 3, permiso_id: 1 },
   { rol_id: 3, permiso_id: 2 },
@@ -54,6 +56,8 @@ const rolesPermisos = [
   { rol_id: 3, permiso_id: 25 },
   { rol_id: 3, permiso_id: 26 },
   { rol_id: 3, permiso_id: 27 },
+  { rol_id: 3, permiso_id: 28},
+  { rol_id: 3, permiso_id: 29},
   //User
   { rol_id: 2, permiso_id: 1 },
   { rol_id: 2, permiso_id: 5 },

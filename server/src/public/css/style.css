@@ -13,7 +13,26 @@
     z-index: 99;
 }
 
+body{
+    background-color: #E8EFF8;
+}
+.content{
+    background-color: #E8EFF8;
+}
+#table-home{
+    height: 300px;
+    overflow-y: scroll;
+}
+.container-filters{
+    height: 300px;
+    overflow-y: scroll;
+}
 
+.content-tools{
+    height: 73vh;
+    overflow-y: scroll;
+
+}
 /*** Spinner ***/
 #spinner {
     opacity: 0;
@@ -352,4 +371,14 @@ a{
     overflow:auto;
     max-height: 200px;
     overflow-y: auto;
+}
+
+#tableLogs{
+    overflow:auto;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.imgIcons{
+    margin-right: 20px;
 }

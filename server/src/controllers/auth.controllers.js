@@ -63,7 +63,7 @@ export const login = async (req, res) => {
             sameSite: "strict",
           };
           res.cookie('userSession', token, cookiesOptions);
-
+          res.cookie('username',usuario.username)
         return res.status(200).json({
             message:'Inicio de sesion exitoso!',
             permisos:permisos,

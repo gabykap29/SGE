@@ -92,25 +92,39 @@ document.addEventListener('DOMContentLoaded', async () => {
     const createRecord = document.getElementById('createRecord');
     const permissions = JSON.parse(localStorage.getItem('permissions'));
     const editRecord = document.querySelectorAll('.btnEdit');
-
+    const logs = document.getElementById('logs');
+    const settings = document.getElementById('tools');
     let permissionsUser = permissions.includes('Ver Usuario', 'Editar Usuario', 'Eliminar Usuario', 'Crear Usuario ');
     let permissionsRecordsCreate = permissions.includes('Crear Expediente')
     let permissionsRecordsEdit = permissions.includes('Editar Expediente');
+    let permissionsLogs = permissions.includes('Ver Logs');
+    let permissionsSettings = permissions.includes('Ver Ajustes');
     if(!permissionsUser){
         userManager.remove();
     };
 
-    if(!permissionsRecordsCreate){
+    if(permissionsRecordsCreate === false){
         createRecord.remove();
     };
 
-    if(permissionsRecordsEdit === false){
-        createRecord.remove();
-    };
 
     if(!permissionsRecordsEdit){
         editRecord.forEach((record)=>{
             record.style.display = 'none';
         });
     };
+
+    if(!permissionsLogs){
+        logs.remove();
+    };
+
+    if(!permissionsSettings){
+        settings.remove();
+    }
     });
+
+    const imgPerfil = document.getElementById('imgPerfil');
+    const imgProfileNavbar = document.getElementById('imgProfileNavbar');
+    const fullname = JSON.parse(localStorage.getItem('fullname'));    
+    imgPerfil.src = `https://ui-avatars.com/api/?name=${fullname}&background=random`
+    imgProfileNavbar.src = `https://ui-avatars.com/api/?name=${fullname}&background=random`
