@@ -3,7 +3,7 @@ import { getTipoExpedientes } from "../controllers/tipoExpediente.controllers.js
 import verificarExpedientesVencidos, {
   expedientesCtrl,
 } from "../controllers/expedientes.controllers.js";
-import { uploadFile } from "../controllers/files.controllers.js";
+import { deleteFile, uploadFile } from "../controllers/files.controllers.js";
 import upload from "../utils/multerConfig.js";
 import { isAutenticate } from "../middlewares/isAutenticate.js";
 import {
@@ -105,4 +105,10 @@ routerExpedientes.put(
   validateRecord,
   expedientesCtrl.editarExpediente
 );
+routerExpedientes.delete(
+  "/api/eliminar/files/:id",
+  isAutenticate,
+  permisoEditarExpediente,
+  deleteFile,
+)
 export default routerExpedientes;

@@ -2,6 +2,7 @@ import Files from "../models/Files.js";
 import fs from "fs";
 import __dirname from "../utils/dirnameConfig.js";
 import Expediente from "../models/Expediente.js";
+import path from "path";
 export const uploadFile = async (req, res) => {
   try {
     const  pdf  = req.file;

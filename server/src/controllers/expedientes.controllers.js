@@ -393,12 +393,35 @@ export default verificarExpedientesVencidos;
 expedientesCtrl.elevarExpediente = async (req, res) => {
   try {
     const { id } = req.params;
-    const expediente = await Expediente.findByPk(id);
+    const expediente = await Expediente.findOne({
+      where:{
+        id,
+      },
+      include:[
+        {
+          model: File,
+          as: "files",
+        },
+      ]
+    });
     if (!expediente) {
       return res.status(404).json({
         message: "No se encontro el expediente",
       });
+    };
+    if(expediente.files.length === 0 || expediente.files === 1){
+      return res.status(400).json({
+        status: 400,
+        message: "Para elevar el expediente, se require adjuntar la elevación del mismo",
+      });
     }
+    if (expediente.estado == 1) {
+      return res.status(400).json({
+        status: 400,
+        message: "El expediente ya fue elevado",
+      });
+    }
+
     await expediente.update({ estado: 1, fecha_elevacion: new Date() });
     return res
       .status(201)

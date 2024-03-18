@@ -50,7 +50,9 @@ const renderRecord = async (id) => {
     recordPdf.innerHTML = ``;
     if(record.files.length > 0) {
             for (let i = 0; i < record.files.length; i++) {
-                recordPdf.innerHTML += `<a href="/uploads/${record.files[i].url}" class="btn" target="_blank"><img src="/img/pdf.png" width=40 > <span>${record.files[i].descripcion}</span> </a>`            }
+                recordPdf.innerHTML += `<a href="/uploads/${record.files[i].url}" class="btn" target="_blank"><img src="/img/pdf.png" width=40 > <span>${record.files[i].descripcion}</span> </a>
+                <button class="btn" id="deleteFile" data-id="${record.files[i].id}"> <i class="fas fa-trash-alt"></i> </button> 
+                `            }
     }else{
         recordPdf.innerHTML = `<p>No hay archivos adjuntos</p>`;
     };
@@ -105,16 +107,59 @@ const elevateRecord =async (id)=>{
         return;
     };
     const data = await res.json();
+    if(data.status === 400){
+        Swal.fire({
+            title: "Error!",
+            text: data.message,
+            icon: "error"
+          });
+        return;
+    };
     Swal.fire({
         title: "Éxito!",
         text: data.message,
         icon: "success"
       });
+
     const recordId = document.querySelector('#recordId').dataset.id;
     renderRecord(recordId);
 
 };
 
+const deleteFile = async (id) => {
+    const res = await fetch(`/api/eliminar/files/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    if(res.status === 404) {
+        Swal.fire({
+            icon: "error",
+            title: "Error!",
+            text: "Usted no tiene permisos para realizar esta acción!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
+        return;
+    };
+    const data = await res.json();
+    if(data.status === 400){
+        Swal.fire({
+            title: "Error!",
+            text: data.message,
+            icon: "error"
+          });
+        return;
+    };
+    Swal.fire({
+        title: "Éxito!",
+        text: data.message,
+        icon: "success"
+      });
+
+    const recordId = document.querySelector('#recordId').dataset.id;
+    renderRecord(recordId);
+};
 
 document.addEventListener('DOMContentLoaded',async () => {
     const recordId = document.querySelector('#recordId').dataset.id;
@@ -146,3 +191,55 @@ document.addEventListener('DOMContentLoaded',async () => {
 
 });
 
+document.addEventListener('click', (e) => {
+    if (e.target && e.target.id === 'elevate' || e.target.parentElement.id === 'elevate') {
+        e.preventDefault();
+        const recordId = document.querySelector('#recordId').dataset.id;
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "Estás a punto de marcar como elevado este expediente!",
+            icon: "warning",
+            showCancelButton: true,
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Confirmar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                elevateRecord(recordId);
+                Swal.fire({
+                    title: "¡Eliminado!",
+                    text: "¡Expediente elevado con éxito!",
+                    icon: "success"
+                });
+            };
+        });
+    };
+    if(
+        e.target && e.target.id === 'deleteFile' || e.target.parentElement.id === 'deleteFile'
+    ){
+        e.preventDefault();
+        const deleteFileBtn = document.querySelectorAll('#deleteFile');
+        deleteFileBtn.forEach(deleteFileBtn => deleteFileBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const fileId = deleteFileBtn.dataset.id;
+            Swal.fire({
+                title: "¿Estás seguro?",
+                text: "Estás a punto de eliminar este archivo!",
+                icon: "warning",
+                showCancelButton: true,
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Confirmar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteFile(fileId);
+                    Swal.fire({
+                        title: "¡Eliminado!",
+                        text: "¡Archivo eliminado con éxito!",
+                        icon: "success"
+                    });
+                };
+            });
+        }));
+        
+        
+    }
+});

@@ -156,7 +156,7 @@ export const comprobacionesDB = async () => {
     console.log("Ya existen roles en la base de datos");
   }
 
-  if (countPermisos === 0) {
+  if (countPermisos === 0) { 
     await cargarPermisos();
   } else {
     console.log("Ya existen permisos en la base de datos");
@@ -177,8 +177,8 @@ export const comprobacionesDB = async () => {
     //Usuario por defecto
     const passwordHash = await bcrypt.hash(password, salt);
     await Usuario.create({
-      nombre: "Administrator",
-      apellido: "Administrator",
+      nombre: "Primer",
+      apellido: "Usuario",
       username: "admin",
       password: passwordHash,
       rol_id: 1,
