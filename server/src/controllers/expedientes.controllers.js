@@ -409,7 +409,7 @@ expedientesCtrl.elevarExpediente = async (req, res) => {
         message: "No se encontro el expediente",
       });
     };
-    if(expediente.files.length === 0 || expediente.files === 1){
+    if(expediente.files.length <=1 ){
       return res.status(400).json({
         status: 400,
         message: "Para elevar el expediente, se require adjuntar la elevación del mismo",
