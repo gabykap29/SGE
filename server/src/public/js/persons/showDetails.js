@@ -20,7 +20,11 @@ const renderPerson = async()=>{
    try {
     const person = await getPerson();
     if(person.length === 0){
-        alertify.error('Error al obtener la persona.-');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error interno del servidor al obtener las personas!, codigo de error: La persona no existe en la base de datos',
+        });
         return;
     };
     nameComplete.innerHTML = `<strong>Nombre y Apellido: ${person.nombre} ${person.apellido}</strong>`;
@@ -31,6 +35,7 @@ const renderPerson = async()=>{
     description.innerHTML = `<strong>${person.observaciones != null && person.observaciones!='' ? person.observaciones : 'No hay observaciones para mostrar.' }</strong>`;
 
     if(person.expedientesDePersona.length > 0){
+        recordTable.innerHTML ="";
         person.expedientesDePersona.forEach((record,index)=>{
             let estado;
         if(person.estado == 1){
@@ -40,7 +45,7 @@ const renderPerson = async()=>{
         }else{
             estado = 'En curso';
         };
-            recordTable.innerHTML=`
+        recordTable.innerHTML+=`
             <tr>
             <td>${index+1}</td>
             <td>${record.orden}</td>
@@ -70,7 +75,11 @@ const renderPerson = async()=>{
     };
    } catch (error) {
     console.log(error);
-    alertify.error('Error al renderizar la persona!');
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Error interno del servidor al obtener las personas!, codigo de error: La persona no existe en la base de datos',
+    });
    };
 };
 
