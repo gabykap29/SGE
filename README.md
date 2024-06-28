@@ -33,8 +33,3 @@ Sigue estos pasos para instalar y configurar el sistema en tu entorno local.
 - PostgreSQL (v12 o superior)
 - Git
 
-### Clonación del Repositorio
-
-```bash
-git clone https://github.com/tuusuario/sistema-expedientes-judiciales.git
-cd sistema-expedientes-judiciales
